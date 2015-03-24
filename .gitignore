@@ -2,6 +2,15 @@
 Thumbs.db
 ehthumbs.db
 
+# Laravel ignored folders
+/bootstrap/compiled.php
+/vendor
+composer.phar
+composer.lock  # Remove this one after you create a project
+.env.*.php
+.env.php
+.DS_Store
+
 # Folder config file
 Desktop.ini
 
@@ -41,3 +50,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
