@@ -14,7 +14,7 @@ class CreateProfileLanguageSpokenTable extends Migration {
 	{
 		Schema::create('profile_language_spoken', function(Blueprint $table)
 		{
-			$table->integer('profileId');
+			$table->integer('profileId')->index('id_profile_fk_idx');
 			$table->integer('languageId')->index('id_language_fk_idx');
 			$table->primary(['profileId','languageId']);
 		});

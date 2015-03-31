@@ -16,6 +16,7 @@ class CreateLanguageTable extends Migration {
 		{
 			$table->integer('idLanguage')->primary();
 			$table->string('name', 45)->nullable();
+			$table->string('code', 45)->nullable();
 		});
 	}
 

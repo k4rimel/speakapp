@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `speakapp`.`profile_language_spoken` (
   `languageId` INT NOT NULL,
   PRIMARY KEY (`profileId`, `languageId`),
   INDEX `id_language_fk_idx` (`languageId` ASC),
-  CONSTRAINT `id_profile_language_to_learn_fk`
+  CONSTRAINT `id_profile_language_spoken_fk`
     FOREIGN KEY (`profileId`)
     REFERENCES `speakapp`.`profile` (`idProfile`)
     ON DELETE NO ACTION
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `speakapp`.`profile_language_to_learn` (
     REFERENCES `speakapp`.`profile` (`idProfile`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `id_language_language_to_learn_fk`
+  CONSTRAINT `id_language_profile_language_to_learn_fk`
     FOREIGN KEY (`id_language`)
     REFERENCES `speakapp`.`language` (`idLanguage`)
     ON DELETE NO ACTION
