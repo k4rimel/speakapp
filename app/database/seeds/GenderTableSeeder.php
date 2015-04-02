@@ -7,12 +7,10 @@ class GenderTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$faker = Faker::create();
+		DB::table('gender')->delete();
 
-		$faker->seed(1213);
-		Gender::create([
-			'male','female'
-		]);
+		Gender::create(array('name' => 'male'));
+		Gender::create(array('name' => 'female'));
 	}
 
 }

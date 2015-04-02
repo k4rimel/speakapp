@@ -7,6 +7,7 @@ class ProfileLanguageSpokenTableSeeder extends Seeder {
 
 	public function run()
 	{
+		DB::table('profile_language_spoken')->delete();
 		$faker = Faker::create();
 
 		$profileIds = Profile::lists('id');
@@ -16,7 +17,7 @@ class ProfileLanguageSpokenTableSeeder extends Seeder {
 
 		foreach(range(1, 20) as $index)
 		{
-			ProfileLanguageSpoken::create([
+			$profileLanguageSpoken = ProfileLanguageSpoken::create([
 				'profileId' => $faker->randomElement($profileIds),
 				'languageId' =>  $faker->randomElement($languageIds)
 			]);

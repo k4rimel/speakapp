@@ -6,19 +6,27 @@ class ProfileTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$faker = Faker\Factory::create('fr_FR');
-
+		DB::table('profile')->delete();
+		$faker = Faker::create('fr_FR');
 		$faker->seed(1234);
-
-		$genderIds = Gender::lists('id');
-
+		$genderIds = Gender::lists('idGender');
+		$locationIds = Location::lists('idLocation');
+		$date = $faker->dateTime();
 		foreach(range(1, 20) as $index)
 		{
-			Profile::create(['birthday' => $faker->date('Y-m-d', 'now'), 'firstname' => $faker->firstName, 'lastname' => $faker->lastName,
-							'interests' => $faker->sentence, 'description' => $faker->text, 
-							'hometownLocation' => $faker->city, 'currentLocation' => $faker->city,
-							'pictureURL' => $faker->imageUrl(640, 480),'pictureSmallURL' => $faker->imageUrl(320, 240),
-							'pictureBigURL' => $faker->imageUrl(800, 600),'profileGender' => $faker->randomElement($genderIds)
+			$profile = Profile::create([
+										'birthday' => $date->format('Y-m-d'),
+										'firstname' => $faker->firstName(),
+										'lastname' => $faker->lastName(),
+										'interests' => $faker->sentence(), 
+										'description' => $faker->paragraph(rand(1,3)),
+										'hometownLocation' => $faker->randomElement($locationIds),
+										'currentLocation' => $faker->randomElement($locationIds),
+										'pictureURL' => $faker->imageUrl(640, 480),
+										'pictureSmallURL' => $faker->imageUrl(320, 240),
+										'pictureBigURL' => $faker->imageUrl(800, 600),
+										'profileGender' => $faker->randomElement($genderIds),
+										'email' => $faker->email(),
 			]);
 		}
 	}
