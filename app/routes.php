@@ -10,14 +10,19 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::resource('profiles', 'ProfileController');		
 
 Route::get('/', function()
 {
 	return View::make('hello');
 });
-Route::get('/home', function(){
-	return View::make('home');
+
+
+Route::group(array('prefix' => 'api'), function() {
+	Route::resource('message', 'CommentController', 
+		array('except' => array('create', 'edit', 'update')));
 });
+
 
 Route::get('/logout', function()
 {

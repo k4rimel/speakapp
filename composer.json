@@ -5,7 +5,10 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"toddish/verify": "3.*"
+		"toddish/verify": "3.*",
+		"barryvdh/laravel-ide-helper": "~1.11",
+		"barryvdh/laravel-debugbar": "~1.8",
+		"anahkiasen/former": "~3.5"
 	},
 	"require-dev": {
 		"xethron/migrations-generator": "dev-master",
