@@ -12,7 +12,7 @@ class ProfileController extends BaseController {
 	 */
 	public function index()
     {
-        $profiles = Profile::with(['languageSpoken','languagToLearn'])->get();
+        $profiles = Profile::with(['languageSpoken','languageToLearn'])->get();
      	$this->layout->content = View::make('profiles.index');
         return View::make('profiles.index')
             ->with('profiles', $profiles);
@@ -20,21 +20,19 @@ class ProfileController extends BaseController {
 
     public function create()
     {
-
         $languages = DB::table('language')->orderBy('name', 'asc')->lists('name','id');
-        // $languages = Language::select('id', 'name')->get();
         $this->layout->content = View::make('profiles.create');
         return View::make('profiles.create')
             ->with('languages', $languages);
     }
 
     public function store() {
-        // validate
+        // TODO : generate password
         $rules = array(
             'firstname'          => 'required',
             'lastname'           => 'required',
             'email'              => 'required|email',
-            'birth_date'         => 'required|numeric',
+            'birth_date'         => 'date|date_format:Y-m-d',
             'spoken_languages'   => 'required',
             'languages_to_learn' => 'required',
         );
@@ -46,17 +44,25 @@ class ProfileController extends BaseController {
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            // store
-            // todo : get languages ids and pass it to profile obj
-            $profile = new Profile;
-            $profile->name       = Input::get('firstname');
-            $profile->name       = Input::get('lastname');
-            $profile->email      = Input::get('email');
-            $profile->birth_date = Input::get('birth_date');
-            $nerd->save();
+            
+            $profile                = new Profile;
 
+            $profile->firstname     = Input::get('firstname');
+            $profile->lastname      = Input::get('lastname');
+            $profile->email         = Input::get('email');
+            $profile->birthday      = Input::get('birth_date');
+
+            if($profile->save()) {
+
+                $profile_id = $profile->id;
+                $spoken_languages = (count(Input::get('spoken_languages')) > 1 ? Input::get('spoken_languages') : array(Input::get('spoken_languages')));
+                $languages_to_learn = (count(Input::get('languages_to_learn')) > 1 ? Input::get('languages_to_learn') : array(Input::get('languages_to_learn')));
+
+                $profile->languageSpoken()->sync($spoken_languages, $profile_id);
+                $profile->languageToLearn()->sync($languages_to_learn, $profile_id);
+            }
             // redirect
-            Session::flash('message', 'Successfully created nerd!');
+            Session::flash('message', 'Successfully created profile !');
             return Redirect::to('profiles');
         }
     }

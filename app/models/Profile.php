@@ -10,7 +10,7 @@ class Profile extends Eloquent {
     {
        	return $this->belongsToMany('Language', 'profile_language_spoken', 'profile_id', 'language_id');
     }    
-    public function languagToLearn()
+    public function languageToLearn()
     {
        	return $this->belongsToMany('Language', 'profile_language_to_learn', 'profile_id', 'language_id');
     }

@@ -14,7 +14,7 @@ Route::resource('profiles', 'ProfileController');
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('login.index');
 });
 
 

@@ -3,6 +3,8 @@
 <head>
     <title>Profile management</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/materialize.min.css"> -->
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
 <body>
 <div class="container">
@@ -16,9 +18,8 @@
     </ul>
 </nav>
 
-
 @yield('content')
-
 
 </div>
 </body>
+</html>

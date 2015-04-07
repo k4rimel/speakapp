@@ -31,24 +31,23 @@
         {{ Form::input('birth_date','0000-00-00', Input::old('birth_date'), array('class' => 'form-control')) }}
     </div>
     <div class="form-group">
-        {{ Form::label('spoken_languages', 'Spoken Languages :') }}
-        {{ Form::select('spoken_languages', 
+        {{ Form::label('spoken_languages[]', 'Spoken Languages :') }}
+        {{ Form::select('spoken_languages[]', 
                         $languages,
-                        Input::old('spoken_languages'), 
-                        array('multiple' => 'multiple', 'class' => 'form-control')) 
+                        Input::old('spoken_languages[]'), 
+                        array('multiple' => 'true',
+                              'class'    => 'form-control')) 
         }}
     </div>    
     <div class="form-group">
-        {{ Form::label('languages_to_learn', 'Languages to learn :') }}
-        {{ Form::select('languages_to_learn', 
+        {{ Form::label('languages_to_learn[]', 'Languages to learn :') }}
+        {{ Form::select('languages_to_learn[]', 
                         $languages,
-                        Input::old('languages_to_learn'), 
-                        array('multiple' => 'multiple', 'class' => 'form-control')) 
+                        Input::old('languages_to_learn[]'), 
+                        array('multiple' => 'true',
+                              'class'    => 'form-control')) 
         }}
     </div>
- 
-       
-
     {{ Form::submit('Create the profile!', array('class' => 'btn btn-primary')) }}
 
 {{ Form::close() }}
