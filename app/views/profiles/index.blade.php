@@ -8,9 +8,6 @@
 
 <h1>All the profiles</h1>
 
-<p>This is my body content.</p>
-
-
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -26,7 +23,7 @@
     <tbody>
     @foreach($profiles as $key => $value)
         <tr>
-            <td>{{ $value->idProfile }}</td>
+            <td>{{ $value->id }}</td>
             <td>{{ $value->firstname }}</td>
             <td>{{ $value->lastname }}</td>
             <td>{{ $value->email }}</td>
@@ -52,11 +49,11 @@
                 <!-- we will add this later since its a little more complicated than the other two buttons -->
 
                 <!-- show the nerd (uses the show method found at GET /profiles/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('profiles/' . $value->idProfile) }}">Show</a>
+                <a class="btn btn-small btn-success" href="{{ URL::to('profiles/' . $value->id) }}">Show</a>
 
                 <!-- edit this nerd (uses the edit method found at GET /profiles/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('profiles/' . $value->idProfile . '/edit') }}">Edit</a>
-                <a class="btn btn-small btn-danger" href="{{ URL::to('profiles/' . $value->idProfile . '/delete') }}">Delete</a>
+                <a class="btn btn-small btn-info" href="{{ URL::to('profiles/' . $value->id . '/edit') }}">Edit</a>
+                <a class="btn btn-small btn-danger" href="{{ URL::to('profiles/' . $value->id . '/delete') }}">Delete</a>
 
             </td>
         </tr>

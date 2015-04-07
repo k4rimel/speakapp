@@ -9,8 +9,8 @@ class ProfileTableSeeder extends Seeder {
 		DB::table('profile')->delete();
 		$faker = Faker::create('fr_FR');
 		$faker->seed(1234);
-		$genderIds = Gender::lists('idGender');
-		$locationIds = Location::lists('idLocation');
+		$genderIds = Gender::lists('id');
+		$locationIds = Location::lists('id');
 		$date = $faker->dateTime();
 		foreach(range(1, 20) as $index)
 		{

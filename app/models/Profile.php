@@ -5,15 +5,14 @@ class Profile extends Eloquent {
 	protected $fillable = [];
 	public $timestamps = false;
 
-	protected $primaryKey = 'idProfile';
 
     public function languageSpoken()
     {
-       	return $this->belongsToMany('Language', 'profile_language_spoken', 'profileId', 'languageId');
+       	return $this->belongsToMany('Language', 'profile_language_spoken', 'profile_id', 'language_id');
     }    
     public function languagToLearn()
     {
-       	return $this->belongsToMany('Language', 'profile_language_to_learn', 'profileId', 'languageId');
+       	return $this->belongsToMany('Language', 'profile_language_to_learn', 'profile_id', 'language_id');
     }
 
 

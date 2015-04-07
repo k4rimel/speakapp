@@ -10,16 +10,16 @@ class ProfileLanguageToLearnTableSeeder extends Seeder {
 		DB::table('profile_language_to_learn')->delete();
 		$faker = Faker::create();
 
-		$profileIds = Profile::lists('idProfile');
-		$languageIds = Language::lists('idLanguage');
+		$profileIds = Profile::lists('id');
+		$languageIds = Language::lists('id');
 
 		$faker->seed(1718);
 
 		foreach(range(1, 20) as $index)
 		{
 			$profileLanguageToLearn = ProfileLanguageToLearn::create([
-				'profileId' => $faker->randomElement($profileIds),
-				'languageId' =>  $faker->randomElement($languageIds)
+				'profile_id' => $faker->randomElement($profileIds),
+				'language_id' =>  $faker->randomElement($languageIds)
 			]);
 		}
 	}

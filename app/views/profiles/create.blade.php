@@ -25,14 +25,28 @@
     <div class="form-group">
         {{ Form::label('email', 'Email') }}
         {{ Form::email('email', Input::old('email'), array('class' => 'form-control')) }}
+    </div>    
+    <div class="form-group">
+        {{ Form::label('birth_date', 'Birth date : ') }}
+        {{ Form::input('birth_date','0000-00-00', Input::old('birth_date'), array('class' => 'form-control')) }}
     </div>
-
-        {{Former::select('spoken_languages')
-        ->help('Spoken Languages : ')
-        ->fromQuery($languages, 'name')}}
-        {{Former::select('languages_to_learn')
-        ->help('Languages to learn : ')
-        ->fromQuery($languages, 'name')}}
+    <div class="form-group">
+        {{ Form::label('spoken_languages', 'Spoken Languages :') }}
+        {{ Form::select('spoken_languages', 
+                        $languages,
+                        Input::old('spoken_languages'), 
+                        array('multiple' => 'multiple', 'class' => 'form-control')) 
+        }}
+    </div>    
+    <div class="form-group">
+        {{ Form::label('languages_to_learn', 'Languages to learn :') }}
+        {{ Form::select('languages_to_learn', 
+                        $languages,
+                        Input::old('languages_to_learn'), 
+                        array('multiple' => 'multiple', 'class' => 'form-control')) 
+        }}
+    </div>
+ 
        
 
     {{ Form::submit('Create the profile!', array('class' => 'btn btn-primary')) }}
