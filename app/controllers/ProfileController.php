@@ -13,16 +13,16 @@ class ProfileController extends BaseController {
 	public function index()
     {
         $profiles = Profile::with(['languageSpoken','languageToLearn'])->get();
-     	$this->layout->content = View::make('profiles.index');
-        return View::make('profiles.index')
+     	$this->layout->content = View::make('admin.profiles.index');
+        return View::make('admin.profiles.index')
             ->with('profiles', $profiles);
     }
 
     public function create()
     {
         $languages = DB::table('language')->orderBy('name', 'asc')->lists('name','id');
-        $this->layout->content = View::make('profiles.create');
-        return View::make('profiles.create')
+        $this->layout->content = View::make('admin.profiles.create');
+        return View::make('admin.profiles.create')
             ->with('languages', $languages);
     }
 
@@ -66,6 +66,42 @@ class ProfileController extends BaseController {
             return Redirect::to('profiles');
         }
     }
+    public function signup() {
+        $profile = new Profile;
+        $profile->firstname     = Input::get('firstname');
+        $profile->lastname      = Input::get('lastname');
+        $profile->email         = Input::get('username');
+        $profile->password      = Hash::make(Input::get('password'));
+        $profile->save();
 
+        Session::flash('message', 'Welcome to speakapp'.$profile->firstname.'. We sent you an email to validate your account.');
+        return Redirect::to('profile/'.$profile->toString());
+    }
+    public function getProfileFromURL($name = null) {
+        $profileNameTab = explode(".", $name);
+        $profileFirstName = str_replace('-', ' ', $profileNameTab[0]);
+        $profileLastName = str_replace('-', ' ', $profileNameTab[1]);
+
+        $profile = Profile::where('firstname', '=', $profileFirstName)->where('lastname', '=' , $profileLastName)->first();
+
+        return $profile;
+    }
+
+    public function show($profilename) {
+        $profile = $this->getProfileFromURL($profilename);
+        return View::make('profile.page')
+            ->with('profile', $profile);
+    }
+    public function signin() {
+        $credentials = Input::only('username', 'password');
+        if (Auth::attempt($credentials)) {
+            return Redirect::intended('/');
+        }
+        return Redirect::to('/');
+    }    
+    public function logout() {
+        $Auth::logout();
+        return Response::make('You are now logged out. :(');
+    }
 
 }

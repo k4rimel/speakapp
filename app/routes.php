@@ -24,11 +24,6 @@ Route::group(array('prefix' => 'api'), function() {
 });
 
 
-Route::get('/logout', function()
-{
-	Auth::logout();
-	return Response::make('You are now logged out. :(');
-});
 
 Route::get('/admin', array(
 	'before' => 'auth',
@@ -38,30 +33,8 @@ Route::get('/admin', array(
 	}
 ));
 
-Route::get('/signin', function()
-{
-    return View::make('signin');
-});
-Route::post('/signin', function()
-{
-	$credentials = Input::only('username', 'password');
-	if (Auth::attempt($credentials)) {
-		return Redirect::intended('/');
-	}
-	return Redirect::to('signin');
-});
 
-Route::get('/signup', function()
-{
-	return View::make('create_user_form');
-});
-Route::post('/signup', function()
-{
-	$user = new User;
-	$user->username 	= Input::get('username');
-	$user->password 	= Hash::make(Input::get('password'));
-	$user->email    	= Input::get('email');
-	$user->save();
-
-	return Response::make('User created!');
-});
+Route::get('/logout', array('as' => 'profile.logout', 'uses' => 'ProfileController@logout'));
+Route::get('/profile/{profilename}', array('as' => 'profile.show', 'uses' => 'ProfileController@show'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
+Route::post('/signup', array('as' => 'profile.signup', 'uses' => 'ProfileController@signup'));
+Route::post('/signin', array('as' => 'profile.signin', 'uses' => 'ProfileController@signin'));

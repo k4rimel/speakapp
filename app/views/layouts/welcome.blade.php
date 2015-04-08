@@ -23,15 +23,17 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <form class="navbar-form navbar-right" role="search">
+          {{ Form::open(array('url' => 'signin','class' => 'navbar-form navbar-right')) }}
+          
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="username">
-            </div>            
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="password">
+            {{ Form::text('username', Input::old('username'), array('class' => 'form-control', 'placeholder' => 'username')) }}  
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-          </form>
+
+            <div class="form-group">
+            {{ Form::text('password', Input::old('password'), array('class' => 'form-control', 'placeholder' => 'password')) }}
+            </div>
+            {{ Form::button('Submit', array('class' => 'btn btn-success')) }}
+          {{ Form::close() }}
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
