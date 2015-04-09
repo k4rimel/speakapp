@@ -2,15 +2,16 @@
 
 use Faker\Factory as Faker;
 
-class ProfileTableSeeder extends Seeder {
+class ProfilesTableSeeder extends Seeder {
 
 	public function run()
 	{
 		DB::table('profile')->delete();
 		$faker = Faker::create('fr_FR');
 		$faker->seed(1234);
-		$genderIds = Gender::lists('id');
-		$locationIds = Location::lists('id');
+		$gendersIds = Gender::lists('id');
+		$locationsIds = Location::lists('id');
+		$usersIds = User::lists('id');
 		$date = $faker->dateTime();
 		foreach(range(1, 20) as $index)
 		{
@@ -20,12 +21,12 @@ class ProfileTableSeeder extends Seeder {
 				'lastname' => $faker->lastName(),
 				'interests' => $faker->sentence(), 
 				'description' => $faker->paragraph(rand(1,3)),
-				'hometownLocation' => $faker->randomElement($locationIds),
-				'currentLocation' => $faker->randomElement($locationIds),
+				'hometownLocation' => $faker->randomElement($locationsIds),
+				'currentLocation' => $faker->randomElement($locationsIds),
 				'pictureURL' => $faker->imageUrl(640, 480),
 				'pictureSmallURL' => $faker->imageUrl(320, 240),
 				'pictureBigURL' => $faker->imageUrl(800, 600),
-				'profileGender' => $faker->randomElement($genderIds),
+				'profileGender' => $faker->randomElement($gendersIds),
 				'email' => $faker->email(),
 			]);
 		}

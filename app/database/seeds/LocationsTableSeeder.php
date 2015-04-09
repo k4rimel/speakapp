@@ -4,7 +4,7 @@
 use Faker\Factory as Faker;
 use Faker\Provider\en_US\Address as FakerAdress;
 
-class LocationTableSeeder extends Seeder {
+class LocationsTableSeeder extends Seeder {
 
 	public function run()
 	{

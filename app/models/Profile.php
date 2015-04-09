@@ -5,7 +5,6 @@ class Profile extends Eloquent  {
 	protected $fillable = [];
 	public $timestamps = false;
 
-
     public function languageSpoken()
     {
        	return $this->belongsToMany('Language', 'profile_language_spoken', 'profile_id', 'language_id');

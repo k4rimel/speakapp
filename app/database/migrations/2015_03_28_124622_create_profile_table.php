@@ -26,6 +26,7 @@ class CreateProfileTable extends Migration {
 			$table->string('pictureSmallURL')->nullable();
 			$table->string('pictureBigURL')->nullable();
 			$table->integer('profileGender')->nullable()->index('profile_gender_fk_idx');
+			$table->rememberToken();
 		});
 	}
 

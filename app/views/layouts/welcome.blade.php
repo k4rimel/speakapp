@@ -30,9 +30,9 @@
             </div>
 
             <div class="form-group">
-            {{ Form::text('password', Input::old('password'), array('class' => 'form-control', 'placeholder' => 'password')) }}
+            {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
             </div>
-            {{ Form::button('Submit', array('class' => 'btn btn-success')) }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
           {{ Form::close() }}
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
