@@ -8,7 +8,7 @@ class LocationsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('location')->delete();
+		DB::table('locations')->delete();
 		$faker = Faker::create('fr_FR');
 	 	$faker->addProvider(new FakerAdress($faker));
 		$faker->seed(1415);

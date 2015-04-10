@@ -3,11 +3,11 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use Faker\Factory as Faker;
 
-class LanguageTableSeeder extends Seeder {
+class LanguagesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('language')->delete();
+		DB::table('languages')->delete();
 		$language = Language::create(array('code' => 'af', 'name' => 'Afrikaans'));
 		$language = Language::create(array('code' => 'am', 'name' => 'Amharic'));
 		$language = Language::create(array('code' => 'ar', 'name' => 'Arabic'));

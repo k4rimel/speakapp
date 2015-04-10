@@ -6,15 +6,21 @@ class ProfilesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('profile')->delete();
+		DB::table('profiles')->delete();
 		$faker = Faker::create('fr_FR');
 		$faker->seed(1234);
 		$gendersIds = Gender::lists('id');
 		$locationsIds = Location::lists('id');
 		$usersIds = User::lists('id');
 		$date = $faker->dateTime();
+
 		foreach(range(1, 20) as $index)
 		{
+			$user = User::create([
+				'username' => $faker->email(),
+				'password' => Hash::make($faker->name . $faker->year),
+			]);
+
 			$profile = Profile::create([
 				'birthday' => $date->format('Y-m-d'),
 				'firstname' => $faker->firstName(),
@@ -28,6 +34,7 @@ class ProfilesTableSeeder extends Seeder {
 				'pictureBigURL' => $faker->imageUrl(800, 600),
 				'profileGender' => $faker->randomElement($gendersIds),
 				'email' => $faker->email(),
+				'users_id' => $user->id
 			]);
 		}
 	}
