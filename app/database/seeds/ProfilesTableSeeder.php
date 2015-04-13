@@ -18,7 +18,7 @@ class ProfilesTableSeeder extends Seeder {
 		{
 			$user = User::create([
 				'username' => $faker->email(),
-				'password' => Hash::make($faker->name . $faker->year),
+				'password' => Hash::make('test'),
 			]);
 
 			$profile = Profile::create([
@@ -27,14 +27,13 @@ class ProfilesTableSeeder extends Seeder {
 				'lastname' => $faker->lastName(),
 				'interests' => $faker->sentence(), 
 				'description' => $faker->paragraph(rand(1,3)),
-				'hometownLocation' => $faker->randomElement($locationsIds),
-				'currentLocation' => $faker->randomElement($locationsIds),
-				'pictureURL' => $faker->imageUrl(640, 480),
-				'pictureSmallURL' => $faker->imageUrl(320, 240),
-				'pictureBigURL' => $faker->imageUrl(800, 600),
-				'profileGender' => $faker->randomElement($gendersIds),
-				'email' => $faker->email(),
-				'users_id' => $user->id
+				'picture_url' => $faker->imageUrl(640, 480),
+				'picture_small_url' => $faker->imageUrl(320, 240),
+				'picture_big_url' => $faker->imageUrl(800, 600),
+				'hometown_location_id' => $faker->randomElement($locationsIds),
+				'current_location_id' => $faker->randomElement($locationsIds),
+				'gender_id' => $faker->randomElement($gendersIds),
+				'user_id' => $user->id
 			]);
 		}
 	}

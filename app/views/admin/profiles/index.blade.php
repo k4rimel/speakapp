@@ -26,7 +26,7 @@
             <td>{{ $value->id }}</td>
             <td>{{ $value->firstname }}</td>
             <td>{{ $value->lastname }}</td>
-            <td>{{ $value->email }}</td>
+            <td>{{ $value->user->username }}</td>
             <td>
             	@foreach($value->languageSpoken as $res => $val)
 					{{ ($res == count($value->languageSpoken) - 1 ? $val->name  : $val->name.',  ')}}

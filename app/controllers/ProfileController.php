@@ -20,7 +20,7 @@ class ProfileController extends BaseController {
 
     public function create()
     {
-        $languages = DB::table('language')->orderBy('name', 'asc')->lists('name','id');
+        $languages = DB::table('languages')->orderBy('name', 'asc')->lists('name','id');
         $this->layout->content = View::make('admin.profiles.create');
         return View::make('admin.profiles.create')
             ->with('languages', $languages);
@@ -88,16 +88,22 @@ class ProfileController extends BaseController {
     }
 
     public function show($profilename) {
-        $profile = $this->getProfileFromURL($profilename);
-        return View::make('profile.page')
-            ->with('profile', $profile);
+        if (Auth::check())
+        {
+            $profile = Auth::user()->profile;
+            // $profile = $this->getProfileFromURL($profilename);
+            return View::make('profile.page')
+                ->with('profile', $profile);
+        }
     }
     public function signin() {
         $credentials = Input::only('username', 'password');
         if (Auth::attempt($credentials)) {
-            return Redirect::intended('/');
+            return Response::make('profile page');
+            // return Redirect::intended('/');
         }
-        return Redirect::to('/');
+        return Response::make('failed auth');
+        // return Redirect::to('/');
     }    
     public function logout() {
         $Auth::logout();

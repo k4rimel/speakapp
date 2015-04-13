@@ -24,11 +24,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           {{ Form::open(array('url' => 'signin','class' => 'navbar-form navbar-right')) }}
-          
             <div class="form-group">
-            {{ Form::text('username', Input::old('username'), array('class' => 'form-control', 'placeholder' => 'username')) }}  
+            {{ Form::email('username', Input::old('username'), array('class' => 'form-control', 'placeholder' => 'username')) }}
             </div>
-
             <div class="form-group">
             {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
             </div>
@@ -37,9 +35,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-
 @yield('content')
-
 </div>
 </body>
 </html>

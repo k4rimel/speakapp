@@ -18,6 +18,9 @@ class Profile extends Eloquent  {
         $lastname = str_replace(' ', '-', $this->lastname);
         return $firstname.'.'.$lastname;
     }
+    public function user() {
+        return $this->belongsTo('User', 'user_id');
+    }
 
 
 }
