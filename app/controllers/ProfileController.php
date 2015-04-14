@@ -87,27 +87,30 @@ class ProfileController extends BaseController {
         return $profile;
     }
 
-    public function show($profilename) {
+    public function showProfile($profilename) {
         if (Auth::check())
         {
             $profile = Auth::user()->profile;
-            // $profile = $this->getProfileFromURL($profilename);
-            return View::make('profile.page')
-                ->with('profile', $profile);
+            // dd($profile->getFriends->);
+            $this->layout = View::make('layouts.welcome');
+            $this->layout->content = View::make('profile.page')->with('profile', $profile);
+        } else {
+            return Redirect::to('/');
         }
     }
     public function signin() {
         $credentials = Input::only('username', 'password');
         if (Auth::attempt($credentials)) {
-            return Response::make('profile page');
-            // return Redirect::intended('/');
+            $profileName = Auth::user()->profile->toString();
+            return Redirect::to('/profile/'.$profileName);
+        } else {
+            return Redirect::to('/');
         }
-        return Response::make('failed auth');
-        // return Redirect::to('/');
+        
     }    
-    public function logout() {
-        $Auth::logout();
-        return Response::make('You are now logged out. :(');
+    public function signout() {
+        Auth::logout();
+        return Redirect::to('/');
     }
 
 }

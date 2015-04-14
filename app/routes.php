@@ -34,7 +34,7 @@ Route::get('/admin', array(
 ));
 
 
-Route::get('/logout', array('as' => 'profile.logout', 'uses' => 'ProfileController@logout'));
-Route::get('/profile/{profilename}', array('as' => 'profile.show', 'uses' => 'ProfileController@show'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
+Route::get('/signout', array('as' => 'profile.signout', 'uses' => 'ProfileController@signout'));
+Route::get('/profile/{profilename}', array('as' => 'profile.show', 'uses' => 'ProfileController@showProfile'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
 Route::post('/signup', array('as' => 'profile.signup', 'uses' => 'ProfileController@signup'));
 Route::post('/signin', array('as' => 'profile.signin', 'uses' => 'ProfileController@signin'));
