@@ -13,9 +13,10 @@
 Route::resource('profiles', 'ProfileController');		
 
 Route::get('/', function()
-{
-	return View::make('login.index');
-});
+	{
+		return View::make('login.index');
+	}
+);
 
 
 Route::group(array('prefix' => 'api'), function() {
@@ -35,6 +36,6 @@ Route::get('/admin', array(
 
 
 Route::get('/signout', array('as' => 'profile.signout', 'uses' => 'ProfileController@signout'));
-Route::get('/profile/{profilename}', array('as' => 'profile.show', 'uses' => 'ProfileController@showProfile'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
+Route::get('/profile/{profilename}', array('before' => 'guest', 'as' => 'profile.show', 'uses' => 'ProfileController@showProfile'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
 Route::post('/signup', array('as' => 'profile.signup', 'uses' => 'ProfileController@signup'));
 Route::post('/signin', array('as' => 'profile.signin', 'uses' => 'ProfileController@signin'));
