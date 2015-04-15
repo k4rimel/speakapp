@@ -6,8 +6,8 @@
     @else 
         <title>Welcome {{Auth::user()->profile->firstname}}</title>
     @endif
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="js/bootstrap.min.js">
         <!-- <link rel="stylesheet" href="css/materialize.min.css"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
@@ -21,7 +21,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">speakapp alpha</a>
+        <a class="navbar-brand" href="#">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
          @if(!Auth::check())
@@ -37,15 +37,16 @@
         </div>
          @else
         <ul class="nav navbar-nav navbar-right">
-            <li class=""><a href="{{ route('profile.show', array(auth::user()->profile->toString())) }}">{{Auth::user()->username}}<span class="sr-only">(current)</span></a></li>
-            <li><button style="margin-top: .5em;" class="btn btn-primary" type="button">
-            Messages <span class="badge">4</span>
-            </button></li>
+            <li class=""><a href="{{ route('profile.show', array(auth::user()->profile->toString())) }}">{{Auth::user()->username}}<span class="glyphicon glyphicon-triangle-bottom"></span></a></li>
+            <li>
+                <button style="margin-top: .5em;" class="btn btn-primary" type="button">
+                Messages <span class="badge">4</span>
+                </button>
+            </li>
             <li>{{ HTML::linkRoute('profile.signout', 'Sign Out', array(), array('class' => 'btn')) }}</li>
         </ul>
          @endif
     </div>
-    <!--/.nav-collapse -->
 </div>
 </nav>
 <div class="container">

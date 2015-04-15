@@ -5,11 +5,10 @@
 @if (Session::has('message'))
     <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
- <hr class="">
  <div class="container target">
     <div class="row">
         <div class="col-sm-3">
-            <a style="width:140px; margin:0 auto; display: block;" href="/users" class="center-block text-­center"><img title="profile image" class="img-circle img-responsive" src="http://lorempixel.com/140/140/people"></a>
+            <a style="width:140px; margin:0 auto; display: block;" href="/users" class="center-block text-­center"><img title="profile image" class="img-circle img-responsive" src="http://placehold.it/140x140"></a>
         </div>
         <div class="col-sm-9">
             <h1 class="">{{$profile->firstname.' '.$profile->lastname}}</h1>
@@ -98,7 +97,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://lorempixel.com/600/200/people">
+                                <img alt="300x200" src="http://placehold.it/600x200">
                                 <div class="caption">
                                     <h3>
                                     Rover </h3>
@@ -112,7 +111,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://lorempixel.com/600/200/city">
+                                <img alt="300x200" src="http://placehold.it/600x200">
                                 <div class="caption">
                                     <h3>
                                     Marmaduke </h3>
@@ -126,7 +125,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://lorempixel.com/600/200/sports">
+                                <img alt="300x200" src="http://placehold.it/600x200">
                                 <div class="caption">
                                     <h3>
                                     Rocky </h3>
