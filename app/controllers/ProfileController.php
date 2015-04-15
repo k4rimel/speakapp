@@ -88,13 +88,16 @@ class ProfileController extends BaseController {
     }
 
     public function showProfile($profilename) {
-        if (Auth::check())
-        {
-            $profile = Auth::user()->profile;
-            // dd($profile->getFriends->);
-            $this->layout->content = View::make('profile.page')->with('profile', $profile);
+        if($this->getProfileFromURL($profilename) !== null) {
+            if (Auth::check())
+            {
+                $profile = Auth::user()->profile;
+                $this->layout->content = View::make('profile.page')->with('profile', $profile);
+            } else {
+                return Redirect::to('/');
+            }
         } else {
-            return Redirect::to('/');
+            return Response::make('Profile not found');
         }
     }
     public function signin() {

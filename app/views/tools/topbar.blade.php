@@ -51,15 +51,42 @@
                     </li>
                 </ul>
             </li> -->
+<!--             <li class="dropdown">
+                <span class="glyphicon glyphicon-bell pull-right"></span>
+            </li> -->
+            <li>
+                <div class="nav navbar-brand notifications-container">
+                   <a href="#" class="notifications-link" data-toggle="dropdown">
+                     <span class="glyphicon glyphicon-bell notifications"></span>
+                     <span class="label label-danger">3</span>
+                   </a>
+                   <ul class="dropdown-menu pull-center bullet">
+                       <li>
+                           <a href="">Notification 1
+                           </a>
+                       </li>
+                        <li class="divider"></li>
+                       <li>
+                           <a href="#">Notification 2
+                           </a>
+                       </li>
+                        <li class="divider"></li>
+                       <li>
+                           <a href="#">Notification 3
+                           </a>
+                       </li>
+                   </ul>
+                </div>
+            </li>
             <li class="dropdown">
                 <!-- <a data-toggle="dropdown" href=""> -->
 
                 <a data-toggle="dropdown" href="#">
                     <img src="http://placehold.it/40x40" class="img-circle">
-                    {{Auth::user()->username }}
+                    {{Auth::user()->profile->firstname }}
                     <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu profileTopBarMenu">
+                <ul class="dropdown-menu profileTopBarMenu pull-center bullet">
                     <li>
                         <a href="{{ route('profile.show', array(auth::user()->profile->toString())) }}">Show profile 
                             <span class="glyphicon glyphicon-user pull-right"></span>
