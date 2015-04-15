@@ -59,7 +59,7 @@
                     {{Auth::user()->username }}
                     <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu profileTopBarMenu">
                     <li>
                         <a href="{{ route('profile.show', array(auth::user()->profile->toString())) }}">Show profile 
                             <span class="glyphicon glyphicon-user pull-right"></span>

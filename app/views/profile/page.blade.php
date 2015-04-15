@@ -15,7 +15,8 @@
         <div class="col-sm-9">
             <h1 class="">{{$profile->firstname.' '.$profile->lastname}}</h1>
             <h3></h3>
-            <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-envelope"></i> Send me a message</button>
+            <a href="{{route('')}}" class="btn btn-info"><i class="glyphicon glyphicon-envelope"></i> Send me a message</a>
+            <a class="btn btn-primary"><i class="glyphicon glyphicon-envelope"></i> Friends</a>
             <br>
         </div>
     </div>
