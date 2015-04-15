@@ -92,7 +92,6 @@ class ProfileController extends BaseController {
         {
             $profile = Auth::user()->profile;
             // dd($profile->getFriends->);
-            $this->layout = View::make('layouts.welcome');
             $this->layout->content = View::make('profile.page')->with('profile', $profile);
         } else {
             return Redirect::to('/');

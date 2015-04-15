@@ -8,7 +8,9 @@
  <div class="container target">
     <div class="row">
         <div class="col-sm-3">
-            <a style="width:140px; margin:0 auto; display: block;" href="/users" class="center-block text-­center"><img title="profile image" class="img-circle img-responsive" src="http://placehold.it/140x140"></a>
+            <a style="width:140px; margin:0 auto; display: block;" href="{{route('profile.show', array('profile', Auth::user()->profile))}}" class="center-block text-­center">
+                <img title="profile image" class="img-circle img-responsive" src="http://placehold.it/140x140">
+            </a>
         </div>
         <div class="col-sm-9">
             <h1 class="">{{$profile->firstname.' '.$profile->lastname}}</h1>
@@ -52,14 +54,14 @@
                     @endif
                 </div>
             </div>
-            <div class="panel panel-default">
+<!--             <div class="panel panel-default">
                 <div class="panel-heading">
                     Website <i class="fa fa-link fa-1x"></i>
                 </div>
                 <div class="panel-body">
                     <a href="http://bootply.com" class="">bootply.com</a>
                 </div>
-            </div>
+            </div> -->
             <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
                 </li>
