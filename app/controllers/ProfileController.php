@@ -78,17 +78,19 @@ class ProfileController extends BaseController {
         return Redirect::to('profile/'.$profile->toString());
     }
     public function getProfileFromURL($name = null) {
+        $profile = null;
         $profileNameTab = explode(".", $name);
-        $profileFirstName = str_replace('-', ' ', $profileNameTab[0]);
-        $profileLastName = str_replace('-', ' ', $profileNameTab[1]);
-
-        $profile = Profile::where('firstname', '=', $profileFirstName)->where('lastname', '=' , $profileLastName)->first();
-
+        if(count($profileNameTab) === 2) {
+            $profileFirstName = str_replace('-', ' ', $profileNameTab[0]);
+            $profileLastName = str_replace('-', ' ', $profileNameTab[1]);
+            $profile = Profile::where('firstname', '=', $profileFirstName)->where('lastname', '=' , $profileLastName)->first();
+        }
         return $profile;
     }
 
     public function showProfile($profilename) {
-        if($this->getProfileFromURL($profilename) !== null) {
+        $visitedProfile = $this->getProfileFromURL($profilename);
+        if($visitedProfile !== null) {
             if (Auth::check())
             {
                 $profile = Auth::user()->profile;
@@ -97,13 +99,14 @@ class ProfileController extends BaseController {
                 return Redirect::to('/');
             }
         } else {
-            return Response::make('Profile not found');
+            return Response::make('This profile doesn\'t exist');
         }
     }
     public function signin() {
         $credentials = Input::only('username', 'password');
         if (Auth::attempt($credentials)) {
             $profileName = Auth::user()->profile->toString();
+            // dd($profileName);
             return Redirect::to('/profile/'.$profileName);
         } else {
             return Redirect::to('/');
