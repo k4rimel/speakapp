@@ -77,6 +77,10 @@ class ProfileController extends BaseController {
         Session::flash('message', 'Welcome to speakapp'.$profile->firstname.'. We sent you an email to validate your account.');
         return Redirect::to('profile/'.$profile->toString());
     }
+    public function editProfile($profilename) {
+        $profile = $this->getProfileFromURL($profilename);
+        return $this->layout->content = View::make('profile.edit')->with('profile', $profile);
+    }
     public function getProfileFromURL($name = null) {
         $profile = null;
         $profileNameTab = explode(".", $name);
@@ -87,26 +91,39 @@ class ProfileController extends BaseController {
         }
         return $profile;
     }
-
+    public function showFriendlist($profilename) {
+        $profile = $this->getProfileFromURL($profilename);
+        $friends = $profile->getFriendList();
+        // dd($friends);
+        return $this->layout->content = View::make('profile.friendlist')->with('friends', $friends);
+    }
     public function showProfile($profilename) {
         $visitedProfile = $this->getProfileFromURL($profilename);
-        if($visitedProfile !== null) {
-            if (Auth::check())
+        if($visitedProfile !== null) {  // check if profile exists
+            if (Auth::check()) // if logged in
             {
                 $profile = Auth::user()->profile;
-                $this->layout->content = View::make('profile.page')->with('profile', $profile);
-            } else {
-                return Redirect::to('/');
+                if($visitedProfile->id == Auth::user()->profile->id) // if visiting his own page, display news feed page
+                {
+                    return $this->layout->content = View::make('profile.feed')->with('profile', $profile);
+                } else {
+                    $isFriend = $profile->isFriend($visitedProfile);
+                    return $this->layout->content = View::make('profile.page')->with(array('profile' => $visitedProfile, 'isFriend' => $isFriend));
+                }
             }
+            return $this->layout->content = View::make('profile.page')->with('profile', $visitedProfile);
         } else {
             return Response::make('This profile doesn\'t exist');
         }
+    }
+    public function addFriend($profileId) {
+        $senderProfile = Auth::user()->profile;
+        return Response::json($senderProfile->sendFriendRequest($profileId));
     }
     public function signin() {
         $credentials = Input::only('username', 'password');
         if (Auth::attempt($credentials)) {
             $profileName = Auth::user()->profile->toString();
-            // dd($profileName);
             return Redirect::to('/profile/'.$profileName);
         } else {
             return Redirect::to('/');

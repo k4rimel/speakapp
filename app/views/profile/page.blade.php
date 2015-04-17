@@ -1,4 +1,4 @@
-@extends('layouts.welcome')
+@extends('layouts.profile')
 
 @section('content')
 
@@ -6,20 +6,27 @@
     <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
  <div class="container target">
+    @if(Auth::check())
     <div class="row">
         <div class="col-sm-3">
             <a style="width:140px; margin:0 auto; display: block;" href="{{route('profile.show', array('profile', Auth::user()->profile))}}" class="center-block text-­center">
                 <img title="profile image" class="img-circle img-responsive" src="http://placehold.it/140x140">
             </a>
+
         </div>
         <div class="col-sm-9">
             <h1 class="">{{$profile->firstname.' '.$profile->lastname}}</h1>
-            <h3></h3>
+            @if($isFriend)
+            <a href="" class="btn btn-default disabled"><i class="glyphicon glyphicon-check"></i> Friends</a>
+            @else
+            <a class="btn btn-default sendFriendRequest"><i class="glyphicon glyphicon-plus"></i> Add</a>
+            @endif
             <a href="" class="btn btn-default"><i class="glyphicon glyphicon-envelope"></i> Send me a message</a>
             <a class="btn btn-default"><i class="glyphicon glyphicon-user"></i> Friends</a>
             <br>
         </div>
     </div>
+     @endif
     <br>
     <div class="row">
         <div class="col-sm-3">
@@ -28,7 +35,7 @@
                 <li class="list-group-item text-muted" contenteditable="false">Profile</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">City</strong></span> {{$profile->currentLocation->city}}</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Country</strong></span> {{$profile->currentLocation->country}}</li>
-<!--                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Real name</strong></span> Joseph Doe</li>
+<!--<li class="list-group-item text-right"><span class="pull-left"><strong class="">Real name</strong></span> Joseph Doe</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role: </strong></span> Pet Sitter </li> -->
             </ul>
             <div class="panel panel-default">
@@ -155,6 +162,20 @@
         </div>
     </div>
  </div>
+ <script type="text/javascript">
+    $('.sendFriendRequest').click(function(event) {
+        $.ajax({
+            type: "POST",
+            url: "{{route('profile.add', array($profile->id))}}",
+            success: function(){
+                alert( 'request sent !');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+    })
+ </script>
 @stop
 
 

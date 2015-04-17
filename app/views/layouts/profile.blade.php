@@ -8,7 +8,9 @@
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/dropdowns-enhancement.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    @if(Auth::check())
 	<title>{{Auth::user()->profile->firstname}}'s profile</title>
+	@endif
 </head>
 <body>
 	@include('tools.topbar')

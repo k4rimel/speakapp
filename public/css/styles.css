@@ -10,4 +10,7 @@ a:hover {
 }
 .notifications-link, .notifications-link:hover, .notifications-link:visited, .notifications-link:active {
     text-decoration: none;
-} 
+}
+.filter < .dropdown-menu, .btn {
+  width: 100%; 
+}

@@ -12,11 +12,11 @@ class Profile extends Eloquent  {
     {
        	return $this->belongsToMany('Language', 'profile_language_to_learn', 'profile_id', 'language_id');
     }
-    public function hometownLocation() 
+    public function hometownLocation()
     {
         return $this->belongsTo('Location', 'hometown_location_id');
     }    
-    public function currentLocation() 
+    public function currentLocation()
     {
         return $this->belongsTo('Location', 'current_location_id');
     }
@@ -30,13 +30,21 @@ class Profile extends Eloquent  {
         return $this->belongsTo('User', 'user_id');
     }
     public function isFriend($profile) {
+        $thisId = $this->id;
         if(isset($profile) && get_class($profile) == 'Profile') {
+            $profileId = $profile->id;
             $result = DB::table('relationship')
-                            ->where('profile_one_id', '=', $this->id)
-                            ->where('profile_two_id','=', $profile->id)
+                            ->where(function($query)use($thisId, $profileId) {
+                                $query->where('profile_one_id', '=', $thisId);    
+                                $query->where('profile_two_id','=', $profileId);
+                            })
+                            ->orWhere(function($query)use($thisId, $profileId) {
+                                $query->where('profile_one_id', '=', $profileId);
+                                $query->where('profile_two_id','=', $thisId);
+                            })
                             ->where('status','=', '1')
                             ->count();
-            return $result > 0;
+            return $result !== 0;
         }
     }
     public function friendsCount() {
@@ -44,35 +52,46 @@ class Profile extends Eloquent  {
         $friendsCount = DB::table('relationship')
                             ->where(function($query) use($profileId) {
                                 $query->where('profile_one_id', '=', $profileId);
-                                $query->or_where('profile_two_id','=', $profileId);
+                                $query->orWhere('profile_two_id','=', $profileId);
                             })
                             ->where('status','=', '1')
                             ->count();
         return $friendsCount;
     }
-    public function sendFriendRequest($profile) {
-        // INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`)
-        // VALUES (1, 2, 0, 1)
+    public function sendFriendRequest($profileId) {
+        $inserted = DB::table('relationship')->insert(array('profile_one_id' => $this->id,
+                                            'profile_two_id'=> $profileId,
+                                            'status' => 0,
+                                            'action_user_id' => $this->id));
+        return $inserted;
     }
     public function getFriendList() {
         $profileId  = $this->id;
-        $friends    = DB::table('relationship')
-                            ->where(function($query) use($profileId) {
-                                $query->where('profile_one_id', '=', $profileId);
-                                $query->or_where('profile_two_id','=', $profileId);
-                            })
-                            ->where('status','=', '1');
+        $friends    = DB::select('SELECT * FROM profiles,relationship 
+                                WHERE 
+                                ( 
+                                    relationship.profile_one_id = ? OR  relationship.profile_two_id = ?
+                                )
+                                AND (
+                                     (relationship.profile_two_id = profiles.id AND  profiles.id <> ?) 
+                                     OR (relationship.profile_one_id = profiles.id  AND  profiles.id <> ?)
+                                )
+                                AND status = 1
+                                ORDER BY profiles.firstname
+            ',array($profileId,$profileId,$profileId,$profileId));
         return $friends;
     }
+
+
     public function pendingRequests() {
         $profileId  = $this->id;
         $pendingRequests    = DB::table('relationship')
                             ->where(function($query) use($profileId) {
                                 $query->where('profile_one_id', '=', $profileId);
-                                $query->or_where('profile_two_id','=', $profileId);
+                                $query->orWhere('profile_two_id','=', $profileId);
                             })
                             ->where('status','=', '0')
-                            ->where('action_user_id','!=', '1');
+                            ->where('action_user_id','!=', '1')->get();
         return $pendingRequests;
     }
     public function acceptFriendRequest($profile) {

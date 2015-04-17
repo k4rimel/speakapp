@@ -78,22 +78,24 @@
                    </ul>
                 </div>
             </li>
+
+            @if(Auth::user())
             <li class="dropdown">
                 <!-- <a data-toggle="dropdown" href=""> -->
-
                 <a data-toggle="dropdown" href="#">
                     <img src="http://placehold.it/40x40" class="img-circle">
-                    {{Auth::user()->profile->firstname }}
+                        {{Auth::user()->profile->firstname }}
                     <b class="caret"></b>
+                    
                 </a>
                 <ul class="dropdown-menu profileTopBarMenu pull-center bullet">
                     <li>
-                        <a href="{{ route('profile.show', array(auth::user()->profile->toString())) }}">Show profile 
+                        <a href="{{ route('profile.show', array(auth::user()->profile->toString())) }}">Show my page
                             <span class="glyphicon glyphicon-user pull-right"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">Edit profile
+                        <a href="{{ route('profile.edit', array(auth::user()->profile->toString())) }}">Edit profile
                             <span class="glyphicon glyphicon-edit pull-right"></span>
                         </a>
                     </li>
@@ -111,7 +113,7 @@
                     <!-- <li>{{ HTML::linkRoute('profile.signout', 'Sign Out', array(), array('class' => 'btn')) }}</li> -->
                 </ul>
             </li>
-            
+           @endif
         </ul>
          @endif
     </div>
