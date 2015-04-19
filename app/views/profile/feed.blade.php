@@ -13,7 +13,7 @@
             <li class="list-group-item text-left">
             	<a href="{{route('profile.show', array('profile', $profile))}}" class="center-block text-left">
     			    <span class="pull-right">{{$profile->firstname}}</span>
-    			    <img title="profile image" class="img-circle img-responsive" src="http://placehold.it/50x50">
+    			    <img title="profile image" class="img-circle img-responsive" src="/img/50x50.gif">
     			</a>
     		</li>
             <li class="list-group-item text-left">

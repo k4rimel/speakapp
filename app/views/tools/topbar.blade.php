@@ -23,37 +23,8 @@
         </div>
          @else
         <ul class="nav navbar-nav navbar-right">
-<!--             <li>
-                <button data-toggle="dropdown" style="margin-top: .5em;" class="btn btn-primary" type="button">
-                Messages <span class="badge">7 </span> <b class="caret"></b>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">Inbox
-                            
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Drafts
-                            
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Sent Messages
-                            
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">Trash
-                            
-                        </a>
-                    </li>
-                </ul>
-            </li> -->
-<!--             <li class="dropdown">
-                <span class="glyphicon glyphicon-bell pull-right"></span>
-            </li> -->
+            <!-- todo : retrieve notifications from profile -->
+            @if()
             <li>
                 <div class="nav navbar-brand notifications-container">
                    <a href="#" class="notifications-link" data-toggle="dropdown">
@@ -78,12 +49,11 @@
                    </ul>
                 </div>
             </li>
-
-            @if(Auth::user())
+            @endif
             <li class="dropdown">
                 <!-- <a data-toggle="dropdown" href=""> -->
                 <a data-toggle="dropdown" href="#">
-                    <img src="http://placehold.it/40x40" class="img-circle">
+                    <img src="/img/40x40.gif" class="img-circle">
                         {{Auth::user()->profile->firstname }}
                     <b class="caret"></b>
                     
@@ -113,7 +83,6 @@
                     <!-- <li>{{ HTML::linkRoute('profile.signout', 'Sign Out', array(), array('class' => 'btn')) }}</li> -->
                 </ul>
             </li>
-           @endif
         </ul>
          @endif
     </div>

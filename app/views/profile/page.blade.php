@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-3">
             <a style="width:140px; margin:0 auto; display: block;" href="{{route('profile.show', array('profile', Auth::user()->profile))}}" class="center-block text-­center">
-                <img title="profile image" class="img-circle img-responsive" src="http://placehold.it/140x140">
+                <img title="profile image" class="img-circle img-responsive" src="/img/140x140.gif">
             </a>
 
         </div>
@@ -26,7 +26,19 @@
             <br>
         </div>
     </div>
-     @endif
+    @else
+    <div class="row">
+        <div class="col-sm-3">
+            <a style="width:140px; margin:0 auto; display: block;" href="" class="center-block text-­center">
+                <img title="profile image" class="img-circle img-responsive" src="/img/140x140.gif">
+            </a>
+        </div>
+        <div class="col-sm-9">
+            <h1 class="">{{$profile->firstname.' '.$profile->lastname}}</h1>
+        </div>
+    </div>
+    @endif
+
     <br>
     <div class="row">
         <div class="col-sm-3">
@@ -106,7 +118,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://placehold.it/600x200">
+                                <img alt="300x200" src="/img/600x200.gif">
                                 <div class="caption">
                                     <h3>
                                     Rover </h3>
@@ -120,7 +132,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://placehold.it/600x200">
+                                <img alt="300x200" src="/img/600x200.gif">
                                 <div class="caption">
                                     <h3>
                                     Marmaduke </h3>
@@ -134,7 +146,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://placehold.it/600x200">
+                                <img alt="300x200" src="/img/600x200.gif">
                                 <div class="caption">
                                     <h3>
                                     Rocky </h3>

@@ -19,14 +19,14 @@
             		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             		         Location <span class="caret pull-right"></span>
     		        </button>
-    		           	<ul class="dropdown-menu pull-center bullet" role="menu">
-		               		<li>
-		               			<a href="#">Action</a>
-		               		</li>
-		               		<li>
-		               			<a href="#">Another action</a>
-		               		</li>
-    		           	</ul>
+		           	<ul class="dropdown-menu pull-center bullet" role="menu">
+	               		<li>
+	               			<a href="#">Action</a>
+	               		</li>
+	               		<li>
+	               			<a href="#">Another action</a>
+	               		</li>
+		           	</ul>
             	</li>
             	<li class="list-group-item filter">
             		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -74,7 +74,7 @@
     				      		<div class="row">
     				      			<div class="col-sm-6">
     			      		        	<a class="thumbnail pull-left" href="#">
-    				                        <img class="media-object" src="http://placehold.it/50x50">
+    				                        <img class="media-object" src="/img/50x50.gif">
     				                    </a>
     				                    <a href="{{route('profile.show', array($friend->firstname.'.'.$friend->lastname))}}">
     				                    	<h3>{{$friend->firstname}}</h3>
