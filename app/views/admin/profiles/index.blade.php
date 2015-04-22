@@ -5,7 +5,7 @@
 @endif
 
 @section('content')
-
+<a class="btn btn-success" href="{{route('profiles.create')}}">Create a profile</a>
 <h1>All the profiles</h1>
 
 <table class="table table-striped table-bordered">

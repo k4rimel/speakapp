@@ -18,6 +18,10 @@ class ProfileController extends BaseController {
             ->with('profiles', $profiles);
     }
 
+    public function getLanguages() {
+        return Language::all()->toJson();
+    }
+
     public function create()
     {
         $languages = DB::table('languages')->orderBy('name', 'asc')->lists('name','id');

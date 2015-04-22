@@ -23,27 +23,42 @@
         </div>
          @else
         <ul class="nav navbar-nav navbar-right">
-            <!-- todo : retrieve notifications (messages + requests) from profile -->
-            @if(count(Auth::user()->profile->pendingRequests()) > 0)
+            <!-- todo : retrieve messages from profile -->
+            @if(count(Auth::user()->profile->latestPendingRequests()) > 0)
             <li>
                 <div class="nav navbar-brand notifications-container">
                    <a href="#" class="notifications-link" data-toggle="dropdown">
                      <span class="glyphicon glyphicon-bell notifications"></span>
-                     <span class="label label-danger">{{count(Auth::user()->profile->pendingRequests())}}</span>
+                     <span class="label label-danger">{{count(Auth::user()->profile->latestPendingRequests())}}</span>
                    </a>
-                    <ul class="dropdown-menu pull-center bullet">
-                   @foreach (Auth::user()->profile->pendingRequests() as $key => $req_profile)
-                            <li>
-                                <a href="#">{{$req_profile->firstname.' '.$req_profile->lastname}}
-                                    <span class="glyphicon glyphicon-ok pull-right acceptFriendRequest" data-id="{{$req_profile->id}}"></span>
-                                    <span class="glyphicon glyphicon-remove pull-right"></span>
+                   <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                        <div class="notification-heading">
+                            <h4 class="menu-title-dropdown-header">Notifications</h4>
+                        
+                        </div>
+                        <li class="divider"></li>
+                        @foreach (Auth::user()->profile->latestPendingRequests() as $key => $req_profile)
+                            <div class="notifications-wrapper">
+                                <div class="notification-item">
+                                    <h4 class="item-title">{{$req_profile->firstname.' '.$req_profile->lastname}}</h4>
+                                    <a href="" class="friendButton denyFriendRequest" data-id="{{$req_profile->id}}"><span class="glyphicon glyphicon-remove-circle pull-right friendNotificationIcon"></span></a>
+                                    <a href="" class="friendButton acceptFriendRequest" data-id="{{$req_profile->id}}"><span class="glyphicon glyphicon-ok-circle pull-right friendNotificationIcon"></span></a>
+                                    <p class="item-info">Sent you a friend request</p>
+                                </div>
+                            </div>
+                        @endforeach
+                        @if(count(Auth::user()->profile->allPendingRequests()) > 3)
+                            <li class="divider"></li>
+                            <div class="notification-footer">
+                                <a href="">
+                                    <h4 class="menu-title pull-right">View all
+                                        <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                                    </h4>
                                 </a>
-                            </li>
-                            @if($key < count(Auth::user()->profile->pendingRequests()) -1)
-                                <li class="divider"></li>
-                            @endif
-                   @endforeach
-                    </ul>
+                            </div>
+                        @endif
+                     </ul>
+                    
                 </div>
             </li>
             @endif

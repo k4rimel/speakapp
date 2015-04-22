@@ -26,6 +26,9 @@ Route::get('/signup', array('as' => 'main.signup', function() { return View::mak
 	Route::get('/profile/edit/{profilename}', array('before' => 'auth', 'as' => 'profile.edit', 'uses' => 'ProfileController@editProfile'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
 	Route::get('/profile/{profilename}/friends', array('before' => 'auth', 'as' => 'profile.friendlist', 'uses' => 'ProfileController@showFriendlist'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
 	Route::post('/profile/add/{profileid}', array('before' => 'auth', 'as' => 'profile.add', 'uses' => 'ProfileController@addFriend'))->where(array('profileid' => '^[0-9]*$'));
+		/* api routes */
+		Route::get('/api/languages', array('before' => 'auth', 'as' => 'api.languages', 'uses' => 'ProfileController@getLanguages'));
+		/* end api routes */
 	/* end protected routes */
 Route::get('/profile/{profilename}', array('as' => 'profile.show', 'uses' => 'ProfileController@showProfile'))->where(array('profilename' => '^[a-zA-Z-]+(\.{1}[a-zA-Z-]+)?$'));
 Route::post('/signup', array('as' => 'profile.signup', 'uses' => 'ProfileController@signup'));

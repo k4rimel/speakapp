@@ -100,7 +100,7 @@ class Profile extends Eloquent  {
         }
         return $profiles;
     }
-    public function pendingRequests() {
+    public function allPendingRequests() {
         $profileId  = $this->id;
         // TODO : ORDER BY DATE
         $pendingRequests    = DB::select('SELECT relationship.*, profiles.id FROM profiles,relationship 
@@ -115,6 +115,29 @@ class Profile extends Eloquent  {
                                 AND status = 0
                                 AND action_user_id <> ?
                                 ORDER BY profiles.firstname
+            ',array($profileId,$profileId,$profileId,$profileId,$profileId));
+        $profiles = array();
+        foreach ($pendingRequests as $request) {
+            $profiles[]= Profile::find($request->id);
+        }
+        return $profiles;
+    }
+    public function latestPendingRequests() {
+        $profileId  = $this->id;
+        // TODO : ORDER BY DATE
+        $pendingRequests    = DB::select('SELECT relationship.*, profiles.id FROM profiles,relationship 
+                                WHERE 
+                                (
+                                    relationship.profile_one_id = ? OR  relationship.profile_two_id = ?
+                                )
+                                AND (
+                                     (relationship.profile_two_id = profiles.id AND  profiles.id <> ?) 
+                                     OR (relationship.profile_one_id = profiles.id  AND  profiles.id <> ?)
+                                )
+                                AND status = 0
+                                AND action_user_id <> ?
+                                ORDER BY profiles.firstname
+                                LIMIT 3
             ',array($profileId,$profileId,$profileId,$profileId,$profileId));
         $profiles = array();
         foreach ($pendingRequests as $request) {

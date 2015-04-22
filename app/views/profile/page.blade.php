@@ -195,9 +195,10 @@
         $('.acceptFriendRequest').click(function(event) {
             // pass js value to php
             var id = $(this).prop('data-id');
+            alert(id);
             $.ajax({
                 type: "POST",
-                url: "{{route('profile.accept', array($profile->id))}}",
+                url: "{{route('profile.add', array($profile->id))}}",
                 success: function(){
                     alert( 'request sent !');
                 },

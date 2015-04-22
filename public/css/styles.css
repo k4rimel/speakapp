@@ -14,3 +14,65 @@ a:hover {
 .filter < .dropdown-menu, .btn {
   width: 100%; 
 }
+
+/* CSS used here will be applied after bootstrap.css */
+
+ul.notifications {
+	width: 300px;
+	padding: 7px;
+	overflow:auto;
+}
+
+.glyphicon-bell {
+	font-size:1.5rem;
+}
+
+    
+.menu-title-dropdown-header {
+	color:#888;
+	font-size:1.2em;
+	font-weight: bold;
+}
+
+
+.menu-title {
+	color:#d9534f;
+	font-size:1.5rem;
+	display:inline-block;
+}
+ 
+.glyphicon-circle-arrow-right {
+  	margin-left:10px;     
+}
+  
+
+.item-title {
+	font-size: 1.2em;
+	color: #777;
+}
+
+.notifications a.content {
+	text-decoration:none;
+	background:#ccc;
+
+}
+    
+.notification-item {
+ 	padding:10px;
+ 	margin:5px;
+ 	background:#f1f1f1;
+	color: #337ab7;
+ 	border-radius:4px;
+}
+.friendButton {
+	font-size: 1.5em;
+}
+.friendNotificationIcon {
+  	padding: 0 .2em;
+}
+#scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+
