@@ -14,7 +14,7 @@
 </head>
 <body>
 	@include('tools.topbar')
-<div class="container">
+<div class="container main">
 	@yield('content')
 </div>
 </body>

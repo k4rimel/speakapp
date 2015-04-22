@@ -16,8 +16,10 @@
         </div>
         <div class="col-sm-9">
             <h1 class="">{{$profile->firstname.' '.$profile->lastname}}</h1>
-            @if($isFriend)
+            @if($status == 1)
             <a href="" class="btn btn-default disabled"><i class="glyphicon glyphicon-check"></i> Friends</a>
+            @elseif($status == 0)
+            <a href="" class="btn btn-default disabled"><i class="glyphicon glyphicon-check"></i> Request Sent</a>
             @else
             <a class="btn btn-default sendFriendRequest"><i class="glyphicon glyphicon-plus"></i> Add</a>
             @endif
@@ -175,18 +177,36 @@
     </div>
  </div>
  <script type="text/javascript">
-    $('.sendFriendRequest').click(function(event) {
-        $.ajax({
-            type: "POST",
-            url: "{{route('profile.add', array($profile->id))}}",
-            success: function(){
-                alert( 'request sent !');
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert(textStatus);
-            }
-        });
-    })
+    $(document).ready(function() {
+        var mainContainer = $('.main.container');
+        var successPanel = '<div class="alert alert-success alert-dismissable"><a class="panel-close close" data-dismiss="alert">×</a> <i class="fa fa-coffee"></i>Your friend request has been successfully sent.</div>';
+        $('.sendFriendRequest').click(function(event) {
+            $.ajax({
+                type: "POST",
+                url: "{{route('profile.add', array($profile->id))}}",
+                success: function(){
+                    mainContainer.prepend(successPanel);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        })
+        $('.acceptFriendRequest').click(function(event) {
+            // pass js value to php
+            var id = $(this).prop('data-id');
+            $.ajax({
+                type: "POST",
+                url: "{{route('profile.accept', array($profile->id))}}",
+                success: function(){
+                    alert( 'request sent !');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        })
+    });    
  </script>
 @stop
 

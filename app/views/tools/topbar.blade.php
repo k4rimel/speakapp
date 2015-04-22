@@ -23,30 +23,27 @@
         </div>
          @else
         <ul class="nav navbar-nav navbar-right">
-            <!-- todo : retrieve notifications from profile -->
-            @if()
+            <!-- todo : retrieve notifications (messages + requests) from profile -->
+            @if(count(Auth::user()->profile->pendingRequests()) > 0)
             <li>
                 <div class="nav navbar-brand notifications-container">
                    <a href="#" class="notifications-link" data-toggle="dropdown">
                      <span class="glyphicon glyphicon-bell notifications"></span>
-                     <span class="label label-danger">3</span>
+                     <span class="label label-danger">{{count(Auth::user()->profile->pendingRequests())}}</span>
                    </a>
-                   <ul class="dropdown-menu pull-center bullet">
-                       <li>
-                           <a href="">Notification 1
-                           </a>
-                       </li>
-                        <li class="divider"></li>
-                       <li>
-                           <a href="#">Notification 2
-                           </a>
-                       </li>
-                        <li class="divider"></li>
-                       <li>
-                           <a href="#">Notification 3
-                           </a>
-                       </li>
-                   </ul>
+                    <ul class="dropdown-menu pull-center bullet">
+                   @foreach (Auth::user()->profile->pendingRequests() as $key => $req_profile)
+                            <li>
+                                <a href="#">{{$req_profile->firstname.' '.$req_profile->lastname}}
+                                    <span class="glyphicon glyphicon-ok pull-right acceptFriendRequest" data-id="{{$req_profile->id}}"></span>
+                                    <span class="glyphicon glyphicon-remove pull-right"></span>
+                                </a>
+                            </li>
+                            @if($key < count(Auth::user()->profile->pendingRequests()) -1)
+                                <li class="divider"></li>
+                            @endif
+                   @endforeach
+                    </ul>
                 </div>
             </li>
             @endif

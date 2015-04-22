@@ -107,8 +107,8 @@ class ProfileController extends BaseController {
                 {
                     return $this->layout->content = View::make('profile.feed')->with('profile', $profile);
                 } else {
-                    $isFriend = $profile->isFriend($visitedProfile);
-                    return $this->layout->content = View::make('profile.page')->with(array('profile' => $visitedProfile, 'isFriend' => $isFriend));
+                    $status = $profile->getStatus($visitedProfile);
+                    return $this->layout->content = View::make('profile.page')->with(array('profile' => $visitedProfile, 'status' => $status));
                 }
             }
             return $this->layout->content = View::make('profile.page')->with('profile', $visitedProfile);

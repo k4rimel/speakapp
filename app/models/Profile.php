@@ -29,7 +29,7 @@ class Profile extends Eloquent  {
     public function user() {
         return $this->belongsTo('User', 'user_id');
     }
-    public function isFriend($profile) {
+    public function getStatus($profile) {
         $thisId = $this->id;
         if(isset($profile) && get_class($profile) == 'Profile') {
             $profileId = $profile->id;
@@ -37,14 +37,17 @@ class Profile extends Eloquent  {
                             ->where(function($query)use($thisId, $profileId) {
                                 $query->where('profile_one_id', '=', $thisId);    
                                 $query->where('profile_two_id','=', $profileId);
+                                $query->orWhere(function($query)use($thisId, $profileId) {
+                                    $query->where('profile_one_id', '=', $profileId);
+                                    $query->where('profile_two_id','=', $thisId);
+                                });
                             })
-                            ->orWhere(function($query)use($thisId, $profileId) {
-                                $query->where('profile_one_id', '=', $profileId);
-                                $query->where('profile_two_id','=', $thisId);
-                            })
-                            ->where('status','=', '1')
-                            ->count();
-            return $result !== 0;
+                            ->get();
+            if(!$result) {
+                $result = -1;
+                return $result;
+            }
+            return $result[0]->status;
         }
     }
     public function friendsCount() {
@@ -99,13 +102,6 @@ class Profile extends Eloquent  {
     }
     public function pendingRequests() {
         $profileId  = $this->id;
-        // $pendingRequests    = DB::table('relationship')
-        //                     ->where(function($query) use($profileId) {
-        //                         $query->where('profile_one_id', '=', $profileId);
-        //                         $query->orWhere('profile_two_id','=', $profileId);
-        //                     })
-        //                     ->where('status','=', '0')
-        //                     ->where('action_user_id','!=', '1')->get();
         // TODO : ORDER BY DATE
         $pendingRequests    = DB::select('SELECT relationship.*, profiles.id FROM profiles,relationship 
                                 WHERE 
@@ -117,11 +113,12 @@ class Profile extends Eloquent  {
                                      OR (relationship.profile_one_id = profiles.id  AND  profiles.id <> ?)
                                 )
                                 AND status = 0
+                                AND action_user_id <> ?
                                 ORDER BY profiles.firstname
-            ',array($profileId,$profileId,$profileId,$profileId));
+            ',array($profileId,$profileId,$profileId,$profileId,$profileId));
         $profiles = array();
         foreach ($pendingRequests as $request) {
-            $profiles[]= $request->id;
+            $profiles[]= Profile::find($request->id);
         }
         return $profiles;
     }
