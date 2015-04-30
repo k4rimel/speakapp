@@ -32,13 +32,13 @@
     </div>
     <div class="form-group">
         {{ Form::label('spoken_languages[]', 'Spoken Languages :') }}
-        {{ Form::input('spoken_languages_input','', Input::old('spoken_languages_input'), array('class' => 'form-control spoken-languages-input'))}}
-        {{-- {{ Form::select('spoken_languages[]', 
+        {{-- {{ Form::input('spoken_languages_input','', Input::old('spoken_languages_input'), array('class' => 'form-control spoken-languages-input'))}} --}} 
+        {{ Form::select('spoken_languages[]', 
                         $languages,
                         Input::old('spoken_languages[]'), 
                         array('multiple' => 'true',
                               'class'    => 'form-control spoken-languages-list')) 
-        }} --}}
+        }}
     </div>    
     <div class="form-group">
         {{ Form::label('languages_to_learn[]', 'Languages to learn :') }}
@@ -56,9 +56,10 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-    
+        
        
         $('.languages-to-learn-list').select2();
+        $('.spoken-languages-list').select2();
         
     });
 

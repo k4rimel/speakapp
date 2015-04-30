@@ -71,15 +71,39 @@ class ProfileController extends BaseController {
         }
     }
     public function signup() {
-        $profile = new Profile;
-        $profile->firstname     = Input::get('firstname');
-        $profile->lastname      = Input::get('lastname');
-        $profile->email         = Input::get('username');
-        $profile->password      = Hash::make(Input::get('password'));
-        $profile->save();
+        $success = false;
+        try {
+            
+            $user = new User;
 
-        Session::flash('message', 'Welcome to speakapp'.$profile->firstname.'. We sent you an email to validate your account.');
-        return Redirect::to('profile/'.$profile->toString());
+            $user->email                   = Input::get('email');
+            $user->password                = Hash::make(Input::get('password'));
+
+            if($user->save()) {
+                $profile = new Profile;
+
+                $profile->firstname            = Input::get('firstname');
+                $profile->lastname             = Input::get('lastname');
+                $profile->birthday             = strtotime(Input::get('birth_date'));
+
+                if($profile->save()) {
+                    $profile->languageSpoken()->sync(Input::get('spoken_languages'));
+                    $profile->languageToLearn()->sync(Input::get('languages_to_learn'));
+                    $success = true;
+                }
+            }
+        } catch (\Exception $e) {
+
+            
+        }
+        if ($success) {
+            DB::commit();
+            Session::flash('message', 'Welcome to speakapp '.$profile->firstname.'! Check your email box to validate your account.');
+            return Redirect::to('profile/'.$profile->toString());
+        } else {
+            DB::rollback();
+            return Redirect::back()->withErrorMessage('Something went wrong');
+        }
     }
     public function editProfile($profilename) {
         $profile = $this->getProfileFromURL($profilename);
@@ -101,6 +125,7 @@ class ProfileController extends BaseController {
         // dd($friends);
         return $this->layout->content = View::make('profile.friendlist')->with('friends', $friends);
     }
+
     public function showProfile($profilename) {
         $visitedProfile = $this->getProfileFromURL($profilename);
         if($visitedProfile !== null) {  // check if profile exists
@@ -120,6 +145,7 @@ class ProfileController extends BaseController {
             return Response::make('This profile doesn\'t exist');
         }
     }
+
     public function addFriend($profileId) {
         $senderProfile = Auth::user()->profile;
         return Response::json($senderProfile->sendFriendRequest($profileId));
@@ -138,5 +164,12 @@ class ProfileController extends BaseController {
         Auth::logout();
         return Redirect::to('/');
     }
+    public function showSignupPage() {
+        $languages = DB::table('languages')->orderBy('name', 'asc')->lists('name','id');
+        return $this->layout->content = View::make('signup.index')->with('languages', $languages);
+    } 
+    public function showNotifications() {
+
+    } 
 
 }

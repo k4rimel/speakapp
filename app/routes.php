@@ -18,7 +18,7 @@ Route::get('/admin', array('as' => 'admin.index', 'before' => 'auth', function()
 /* Main routes */
 Route::get('/', array( 'as' => 'main.index', 'before' => 'auth', function() { return View::make('main.index');}));
 Route::get('/login', array('as' => 'main.login', 'before' => 'guest', function() { return View::make('main.index');}));
-Route::get('/signup', array('as' => 'main.signup', function() { return View::make('signup.index');}));
+Route::get('/signup', array('as' => 'main.signup', 'uses' => 'ProfileController@showSignupPage'));
 /* end Main routes */
 
 /* Profile routes */

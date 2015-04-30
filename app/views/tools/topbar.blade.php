@@ -29,7 +29,7 @@
                 <div class="nav navbar-brand notifications-container">
                    <a href="#" class="notifications-link" data-toggle="dropdown">
                      <span class="glyphicon glyphicon-bell notifications"></span>
-                     <span class="label label-danger">{{count(Auth::user()->profile->latestPendingRequests())}}</span>
+                     <span class="label label-danger">{{count(Auth::user()->profile->allPendingRequests())}}</span>
                    </a>
                    <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
                         <div class="notification-heading">
@@ -40,9 +40,9 @@
                         @foreach (Auth::user()->profile->latestPendingRequests() as $key => $req_profile)
                             <div class="notifications-wrapper">
                                 <div class="notification-item">
-                                    <h4 class="item-title">{{$req_profile->firstname.' '.$req_profile->lastname}}</h4>
-                                    <a href="" class="friendButton denyFriendRequest" data-id="{{$req_profile->id}}"><span class="glyphicon glyphicon-remove-circle pull-right friendNotificationIcon"></span></a>
+                                    <h4 class="item-title friend-request-name">{{$req_profile->firstname.' '.$req_profile->lastname}}</h4>
                                     <a href="" class="friendButton acceptFriendRequest" data-id="{{$req_profile->id}}"><span class="glyphicon glyphicon-ok-circle pull-right friendNotificationIcon"></span></a>
+                                    <a href="" class="friendButton denyFriendRequest" data-id="{{$req_profile->id}}"><span class="glyphicon glyphicon-remove-circle pull-right friendNotificationIcon"></span></a>
                                     <p class="item-info">Sent you a friend request</p>
                                 </div>
                             </div>
@@ -100,3 +100,38 @@
     </div>
 </div>
 </nav>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var mainContainer = $('.main.container');
+        
+        // var successPanel = '<div class="alert alert-success alert-dismissable"><a class="panel-close close" data-dismiss="alert">×</a> <i class="fa fa-coffee"></i>Congratulations ! You and '++' are now friends !</div>';
+        $('.acceptFriendRequest').click(function(event) {
+            var id = $(this).prop('data-id');
+            var friendName = $(this).siblings('.friend-request-name');
+            $.ajax({
+                type: "POST",
+                url: "",
+                success: function(){
+                    mainContainer.prepend(successPanel);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        })
+        // $('.denyFriendRequest').click(function(event) {
+        //     var id = $(this).prop('data-id');
+        //     alert(id);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "",
+        //         success: function(){
+        //             alert( 'request sent !');
+        //         },
+        //         error: function(jqXHR, textStatus, errorThrown) {
+        //             alert(textStatus);
+        //         }
+        //     });
+        // })
+    });
+</script>
