@@ -37,3 +37,7 @@ Route::get('/signout', array('as' => 'profile.signout', 'uses' => 'ProfileContro
 
 Route::resource('profiles', 'ProfileController');
 /* end Profile routes */
+/* Chat routes */
+Route::get('/chat', array('as' => 'chat.index', 'uses' => 'ChatController@index'));
+
+/* end Chat routes */

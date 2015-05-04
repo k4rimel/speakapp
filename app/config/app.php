@@ -127,6 +127,7 @@ return array(
 	  	'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 	  	'Barryvdh\Debugbar\ServiceProvider',
 	  	'Former\FormerServiceProvider',
+	  	'BrainSocket\BrainSocketServiceProvider',
 	),
 
 	/*
@@ -194,6 +195,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Former' 		  => 'Former\Facades\Former',
+		'BrainSocket'     => 'BrainSocket\BrainSocketFacade',
 	),
 
 );
