@@ -90,13 +90,11 @@ class Profile extends Eloquent  {
             ',array($profileId,$profileId,$profileId,$profileId));
         $profiles = array();
 
-        if(count($friends) > 1) {
+        if(count($friends) >= 1) {
             
             foreach ($friends as $friend) {
                 $profiles[]= Profile::find($friend->id);
             }
-        } else {
-            $profiles []= Profile::find($friends[0]->id);
         }
         return $profiles;
     }

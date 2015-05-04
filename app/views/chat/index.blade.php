@@ -28,7 +28,7 @@
         window.app = {};
  
         app.BrainSocket = new BrainSocket(
-                new WebSocket('ws://localhost:8081'),
+                new WebSocket('ws://speakapp:8080'),
                 new BrainSocketPubSub()
         );
  

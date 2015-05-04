@@ -1,5 +1,6 @@
 <?php
 Event::listen('generic.event',function($client_data){
+	$client_data->data->message.= Auth::user()->profile->firstname;
     return BrainSocket::message('generic.event',array('message'=>'A message from a generic event fired in Laravel!'));
 });
  
