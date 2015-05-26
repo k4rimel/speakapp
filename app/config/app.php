@@ -127,7 +127,6 @@ return array(
 	  	'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 	  	'Barryvdh\Debugbar\ServiceProvider',
 	  	'Former\FormerServiceProvider',
-	  	'BrainSocket\BrainSocketServiceProvider',
 	),
 
 	/*

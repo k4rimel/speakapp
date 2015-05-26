@@ -2,14 +2,14 @@
 <div class="container">
     <div class="navbar-header">
         <a class="navbar-brand navbar-collapse collapse" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
-        <form class="navbar-form pull-left" role="search">
+        {{ Form::open(array('route' => 'search' , 'class' => 'navbar-form pull-left', 'role'=>'search', 'method' => 'GET')) }}
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="q">
+                {{ Form::text('q', Input::old('q'), array('class' => 'form-control')) }}
                 <div class="input-group-btn">
                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
             </div>
-        </form>
+        {{ Form::close() }}
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -20,16 +20,17 @@
     <div id="navbar" class="navbar-collapse collapse">
          @if(!Auth::check())
         <div class="collapse navbar-collapse">
-             {{ Form::open(array('url' => 'signin','class' => 'navbar-form navbar-right')) }}
+            {{ Form::open(array('url' => 'signin','class' => 'navbar-form navbar-right')) }}
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                 {{ Form::email('username', Input::old('username'), array('class' => 'form-control', 'placeholder' => 'username')) }}
+                {{ Form::email('username', Input::old('username'), array('class' => 'form-control', 'placeholder' => 'username')) }}
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                 {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
+                {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
             </div>
-             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }} {{ Form::close() }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-success')) }} 
+            {{ Form::close() }}
         </div>
          @else
         <ul class="nav navbar-nav navbar-right">
@@ -78,7 +79,6 @@
                     <img src="/img/40x40.gif" class="img-circle">
                         {{Auth::user()->profile->firstname }}
                     <b class="caret"></b>
-                    
                 </a>
                 <ul class="dropdown-menu profileTopBarMenu pull-center bullet">
                     <li>

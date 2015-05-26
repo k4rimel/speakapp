@@ -1,6 +1,26 @@
 <?php
 
+use Nicolaslopezj\Searchable\SearchableTrait;
+
 class Profile extends Eloquent  {
+
+    use SearchableTrait;
+
+    protected $searchable = [
+       'columns' => [
+           'firstname' => 10,
+           'lastname' => 10,
+           'users.username' => 5,
+           'description' => 2,
+           'gender.name' => 2,
+       ],
+       'joins' => [
+           'gender' => ['profiles.gender_id','gender.id'],
+           'users' => ['profiles.user_id','users.id'],
+       ],
+   ];
+
+
 	protected $fillable = [];
 	public $timestamps = false;
 
@@ -21,12 +41,19 @@ class Profile extends Eloquent  {
         return $this->belongsTo('Location', 'current_location_id');
     }
     public function toString() {
-        
         $firstname = str_replace(' ', '-', $this->firstname);
         $lastname = str_replace(' ', '-', $this->lastname);
         return $firstname.'.'.$lastname;
+    }    
+    public function fullName() {
+        $firstname = str_replace(' ', '-', $this->firstname);
+        $lastname = str_replace(' ', '-', $this->lastname);
+        return $firstname.' '.$lastname;
     }
-    public function user() {
+    public function gender() {
+        return $this->belongsTo('Gender', 'gender_id');
+    }
+    public function users() {
         return $this->belongsTo('User', 'user_id');
     }
     public function getStatus($profile) {
@@ -152,5 +179,15 @@ class Profile extends Eloquent  {
                                                'action_user_id' => $this->id));
             return $result;
         }
+    }
+    public function getLastConnected()
+    {
+        $user = $this->users;
+        $now = date("Y-m-d H:i:s");
+
+        $lastConnectedTS = strtotime($user->last_connection_date);
+        $nowTS = strtotime($now);
+        $str = Utils::formatDiff($lastConnectedTS, $nowTS);
+        return $str;
     }
 }

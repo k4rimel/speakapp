@@ -9,8 +9,7 @@
 		"barryvdh/laravel-ide-helper": "~1.11",
 		"barryvdh/laravel-debugbar": "~1.8",
 		"anahkiasen/former": "~3.5",
-		"cboden/ratchet": "0.3.*",
-		"brainboxlabs/brain-socket"  : "dev-master"
+		"nicolaslopezj/searchable": "1.*"
 	},
 	"require-dev": {
 		"xethron/migrations-generator": "dev-master",
