@@ -1,0 +1,14 @@
+{
+  "name": "ng-upload",
+  "homepage": "https://github.com/danialfarid/angular-file-upload",
+  "version": "4.2.0",
+  "_release": "4.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "4.2.0",
+    "commit": "fa6fbf0b1b39505126abaa9071bd51a5c79674f0"
+  },
+  "_source": "git://github.com/danialfarid/angular-file-upload.git",
+  "_target": "*",
+  "_originalSource": "danialfarid/angular-file-upload"
+}

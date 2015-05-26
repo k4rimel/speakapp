@@ -1,22 +1,32 @@
 <nav class="navbar navbar-default navbar-static-top">
 <div class="container">
     <div class="navbar-header">
+        <a class="navbar-brand navbar-collapse collapse" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
+        <form class="navbar-form pull-left" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="q">
+                <div class="input-group-btn">
+                   <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </form>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
          @if(!Auth::check())
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
              {{ Form::open(array('url' => 'signin','class' => 'navbar-form navbar-right')) }}
-            <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                  {{ Form::email('username', Input::old('username'), array('class' => 'form-control', 'placeholder' => 'username')) }}
             </div>
-            <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                  {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
             </div>
              {{ Form::submit('Submit', array('class' => 'btn btn-success')) }} {{ Form::close() }}
@@ -104,7 +114,7 @@
     $(document).ready(function() {
         var mainContainer = $('.main.container');
         
-        // var successPanel = '<div class="alert alert-success alert-dismissable"><a class="panel-close close" data-dismiss="alert">×</a> <i class="fa fa-coffee"></i>Congratulations ! You and '++' are now friends !</div>';
+        var successPanel = '<div class="alert alert-success alert-dismissable"><a class="panel-close close" data-dismiss="alert">×</a> <i class="fa fa-coffee"></i>Congratulations ! You and '++' are now friends !</div>';
         $('.acceptFriendRequest').click(function(event) {
             var id = $(this).prop('data-id');
             var friendName = $(this).siblings('.friend-request-name');
