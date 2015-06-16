@@ -1,9 +1,42 @@
 .notifications-container {
 	font-size: 14px;
 }
+.main-header-text-container {
+    padding-top: 6em;
+    padding-bottom: 10em;
+}
+.main-header-text {
+    text-align: center;
+}
+#signup-body {
+    background-image: url('../img/bg.jpg');
+    background-size: 1920px 1080px;
+    background-position: center;
+}
+.signup-form {
+    color: #fff;
+    text-shadow: 1px 1px 5px #000;
+}
+.signup-form > h1, h2, h3, h4, h5, h6{
+    color: #fff;
+    text-shadow: 1px 1px 7px #444;
+}
+.top-bar {
+    margin-bottom: 0px;
+}
+.signup-form > .form-control {
+    color:#fff;
+    text-shadow: 1px 1px 2px #000;
+}
+small, .small {
+    font-size: 50%;
+}
 .glyphicon.notifications {
 	font-size: 2.1em;
 	color:#555;
+}
+.navbar-form .input-group>.form-control {
+    text-indent: 0.3em;
 }
 a:hover {
 	text-decoration: none;

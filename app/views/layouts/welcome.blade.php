@@ -19,10 +19,12 @@
     <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
-<body>
+<body id="signup-body">
     @include('tools.topbar')
-<div class="container">
-    @yield('content')
+<div class="welcome-main-container">
+    <div class="container">
+        @yield('content')
+    </div>
 </div>
 </body>
 </html>

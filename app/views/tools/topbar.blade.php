@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top top-bar">
 <div class="container">
     <div class="navbar-header">
         <a class="navbar-brand navbar-collapse collapse" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
@@ -29,7 +29,7 @@
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                 {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
             </div>
-            {{ Form::submit('Submit', array('class' => 'btn btn-success')) }} 
+            {{ Form::submit(trans('top-bar.signin-button'), array('class' => 'btn btn-primary')) }} 
             {{ Form::close() }}
         </div>
          @else
