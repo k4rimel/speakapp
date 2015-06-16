@@ -68,7 +68,7 @@ Route::filter('auth.basic', function()
 Route::filter('guest', function()
 {
 	if (Auth::check()){return Redirect::to('/');} 
-	else {return Redirect::to('/signup');}
+	else {return Redirect::to('/welcome');}
 });
 
 /*

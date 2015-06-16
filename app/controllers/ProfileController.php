@@ -170,7 +170,7 @@ class ProfileController extends BaseController {
     }
     public function showSignupPage() {
         $languages = DB::table('languages')->orderBy('name', 'asc')->lists('name','id');
-        return $this->layout->content = View::make('signup.index')->with('languages', $languages);
+        return $this->layout->content = View::make('signup.form')->with('languages', $languages);
     } 
     public function showNotifications() {
 
