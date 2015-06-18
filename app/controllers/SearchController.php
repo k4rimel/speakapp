@@ -20,6 +20,8 @@ class SearchController extends BaseController {
         return View::make('search.results')
             ->with('results', $results);
 	}
-
+	public function searchByTag($q) {
+		dd($q);
+	}
 
 }

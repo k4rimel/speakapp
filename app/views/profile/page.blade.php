@@ -57,8 +57,12 @@
                     Spoken languages
                 </div>
                 <div class="panel-body">
-                    @foreach($profile->languageSpoken as $res => $val)
-                    {{ ($res == count($profile->languageSpoken) - 1 ? $val->name  : $val->name.',  ')}}
+                    @foreach($profile->languageSpoken as $language)
+                        <h5 class="language-tag">
+                            <span class="label label-custom">
+                                <span class="flag-icon flag-icon-{{strtolower($language->code)}} flag-icon-squared"></span> {{strtoupper($language->name)}}
+                            </span>
+                        </h5>
                     @endforeach
                 </div>
             </div>  
@@ -67,13 +71,13 @@
                     Languages to learn
                 </div>
                 <div class="panel-body">
-                    @if(count($profile->languageToLearn) > 0)
-                        @foreach($profile->languageToLearn as $res => $val)
-                        {{ ($res == count($profile->languageToLearn) - 1 ? $val->name  : $val->name.',  ')}}
-                        @endforeach
-                    @else
-                        {{'None'}}
-                    @endif
+                    @foreach($profile->languageToLearn as $language)
+                        <h5 class="language-tag">
+                            <span class="label label-custom">
+                                <span class="flag-icon flag-icon-{{strtolower($language->code)}} flag-icon-squared"></span> {{strtoupper($language->name)}}
+                            </span>
+                        </h5>
+                    @endforeach
                 </div>
             </div>
 <!--             <div class="panel panel-default">

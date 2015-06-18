@@ -128,6 +128,7 @@ class ProfileController extends BaseController {
 
     public function showProfile($profilename) {
         $visitedProfile = $this->getProfileFromURL($profilename);
+        $languages = DB::table('languages')->orderBy('name', 'asc')->lists('name','id');
         if($visitedProfile !== null) {  // check if profile exists
             if (Auth::check()) // if logged in
             {

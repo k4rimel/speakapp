@@ -28,5 +28,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 public function profile() {
         return $this->hasOne('Profile');
     }
+    public function getAllLanguages()
+    {
+    	return DB::table('languages')->orderBy('name', 'asc')->lists('name','id');
+    }
 
 }

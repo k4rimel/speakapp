@@ -1,10 +1,14 @@
+<script type="text/javascript">
+    $('.languages-to-learn-list').select2();
+    $('.spoken-languages-list').select2();
+</script>
 <nav class="navbar navbar-default navbar-static-top top-bar">
 <div class="container">
     <div class="navbar-header">
         <a class="navbar-brand navbar-collapse collapse" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
         {{ Form::open(array('route' => 'search' , 'class' => 'navbar-form pull-left', 'role'=>'search', 'method' => 'GET')) }}
             <div class="input-group">
-                {{ Form::text('q', Input::old('q'), array('class' => 'form-control')) }}
+                {{ Form::text('q', Input::old('q'), array('class' => 'form-control topbar-search-input')) }}
                 <div class="input-group-btn">
                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
@@ -112,6 +116,9 @@
 </nav>
 <script type="text/javascript">
     $(document).ready(function() {
+
+        
+                
         var mainContainer = $('.main.container');
         
         var successPanel = '<div class="alert alert-success alert-dismissable"><a class="panel-close close" data-dismiss="alert">×</a> <i class="fa fa-coffee"></i>Congratulations ! You and '++' are now friends !</div>';

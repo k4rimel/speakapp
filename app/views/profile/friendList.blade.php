@@ -6,97 +6,75 @@
     <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
  <div class="container target">
-	<h2>{{count($friends).(count($friends) === 1 ? ' friend found' : ' friends found') }}</h2>
-	<hr>
     <div class="row">
-        <div class="col-sm-3">
-            <!--left col-->
-            <ul class="list-group">
-                <li class="list-group-item text-left" contenteditable="false">
-                	<strong>Filters</strong>
-            	</li>
-            	<li class="list-group-item filter">
-            		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            		         Location <span class="caret pull-right"></span>
-    		        </button>
-		           	<ul class="dropdown-menu pull-center bullet" role="menu">
-	               		<li>
-	               			<a href="#">Action</a>
-	               		</li>
-	               		<li>
-	               			<a href="#">Another action</a>
-	               		</li>
-		           	</ul>
-            	</li>
-            	<li class="list-group-item filter">
-            		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        		         	Spoken Languages <span class="caret pull-right"></span>
-    		        </button>
-    		           	<ul class="dropdown-menu pull-center bullet" role="menu">
-		               		<li>
-		               			<a href="#">Action</a>
-		               		</li>
-		               		<li>
-		               			<a href="#">Another action</a>
-		               		</li>
-    		           	</ul>
-            	</li>
-            	<li class="list-group-item filter">
-    		    	<div class="input-group">
-    		    	      <input type="text" class="form-control" placeholder="Age min.">
-    			    </div>
-            	</li>
-            </ul>
-         
-        </div>
-        <!--/col-3-->
-        @if(count($friends) > 0)
-        <div class="col-sm-9 " contenteditable="false" style="">
+        <div class="col-sm-12 col-lg-12 col-md-12" contenteditable="false" style="">
+            @if(count($friends) > 0)
             <div class="panel panel-default">
-            	@if(count($friends) > 1)
-	            	<div class="panel-heading">
-	    		    	<div class="input-group">
-	    		    	      <input type="text" class="form-control" placeholder="Search">
-	    		    	      <span class="input-group-btn">
-	    		    	        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-	    		    	      </span>
-	    			    </div>
-	            	</div>
-            	@else
-	            	<div class="panel-heading">
-						
-	            	</div>
-            	@endif
-    			@foreach($friends as $friend)
-    				<div class="panel-body">
-    			      	<div class="panel panel-default">
-    				      	<div class="panel-heading">
-    				      		<div class="row">
-    				      			<div class="col-sm-6">
-    			      		        	<a class="thumbnail pull-left" href="#">
-    				                        <img class="media-object" src="/img/50x50.gif">
-    				                    </a>
-    				                    <a href="{{route('profile.show', array($friend->firstname.'.'.$friend->lastname))}}">
-    				                    	<h3>{{$friend->firstname}}</h3>
-    				                    </a>
-    			  					</div>
-    								</div>
-    							</div>
-    			      		<div class="panel-body">
-    			      			{{$friend->description}}
-    			  			</div>
-    			  		</div>
-    				</div>
-    			@endforeach
-        	</div>
+                <div class="panel-heading">
+                    <h4>{{count($friends).(count($friends) === 1 ? ' result' : ' friends found') }}</h4>
+                </div>
+                <div class="panel-body">
+                    <section class="col-xs-12 col-sm-6 col-md-12">
+                        @foreach($friends as $profile)
+
+                        <article class="search-result row">
+                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                <a href="#" title="Lorem ipsum" class="thumbnail">
+                                    <img src="{{$profile->picture_small_url}}" alt="Lorem ipsum" />
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 middle-panel">
+                                <h4>
+                                    <a href="{{ route('profile.show', array($profile->toString())) }}" title="">{{$profile->fullName()}}</a>
+                                </h4>
+                                <ul class="meta-search">
+                                    <li><i class="glyphicon glyphicon-map-marker"></i><span>{{$profile->currentLocation->toString()}}</span></li>
+                                    <li><i class="glyphicon glyphicon-time"></i><span>{{$profile->getLastConnected()}}</span></li>
+                                </ul>
+                            </div>                       
+                            <div class="col-xs-12 col-sm-12 col-md-3 middle-panel">
+                                <ul class="meta-search">
+                                    <li><h6>Learning</h6></li>
+                                    <li>
+                                        @foreach($profile->languageToLearn as $language)
+                                            <a href="{{route('search.tag', array($language->id))}}">
+                                                <h5 class="language-tag">
+                                                    <span class="label label-custom">
+                                                        <span class="flag-icon flag-icon-{{strtolower($language->code)}} flag-icon-squared"></span> {{strtoupper($language->name)}}
+                                                    </span>
+                                                </h5>
+                                            </a>
+                                        @endforeach
+                                    </li>
+                                    <li><h6>Speaks</h6></li>
+                                    <li>
+                                        @foreach($profile->languageSpoken as $language)
+                                            <h5 class="language-tag">
+                                                <span class="label label-custom">
+                                                    <span class="flag-icon flag-icon-{{strtolower($language->code)}} flag-icon-squared"></span> {{strtoupper($language->name)}}
+                                                </span>
+                                            </h5>
+                                        @endforeach
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 excerpet">
+                                <p>{{$profile->description}}</p>
+                            </div>
+                            <span class="clearfix borda"></span>
+                            <hr>
+                        </article>
+                        @endforeach
+                    </section>
+                </div>
+            </div>
+            @else
+                <div class="panel panel-default">
+                    <h1>Sorry, you do not have any friend :'(</h1>
+                    <img src="http://fc02.deviantart.net/fs71/f/2010/239/d/f/forever_alone_by_foreveraloneplz.png">
+                </div>
+            @endif
         </div>
-        @else
-        <div class="panel panel-default">
-        	<h1>Sorry, you do not have any friend :'(</h1>
-        	<img src="http://fc02.deviantart.net/fs71/f/2010/239/d/f/forever_alone_by_foreveraloneplz.png">
-    	</div>
-    	@endif
     </div>
  </div>
-
 @stop
