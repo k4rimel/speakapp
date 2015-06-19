@@ -9,11 +9,11 @@
     <div class="col-sm-12" contenteditable="false" style="">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>{{count($results).(count($results) === 1 ? ' result' : ' results found') }}</h4>
+                <h4>{{$results->getTotal().($results->getTotal() === 1 ? ' result' : ' results found') }}</h4>
             </div>
             <div class="panel-body">
                 <section class="col-xs-12 col-sm-6 col-md-12">
-                    
+                    @if($results)
                         @foreach($results as $profile)
                         <article class="search-result row">
                             <div class="col-xs-12 col-sm-12 col-md-2">
@@ -60,6 +60,8 @@
                             <span class="clearfix borda"></span>
                         </article>
                         @endforeach
+                    {{$results->links()}}
+                    @endif
 
                     <!-- <div class="row">
                         <div class="col-sm-12 col-md-3 col-md-offset-5 col-lg-3 col-lg-offset-5" contenteditable="false" style="">

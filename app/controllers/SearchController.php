@@ -10,7 +10,7 @@ class SearchController extends BaseController {
 		$results = Profile::search($query)
 		            ->with('users')
 		            ->with('gender')
-		            ->get();
+		           	->paginate(10);
         if(count($results) === 0) {
         	$results = null;
         	$msg = 'No result found for your search.';
