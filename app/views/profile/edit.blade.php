@@ -21,7 +21,7 @@
       
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
-        <div class="alert alert-info alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
           <a class="panel-close close" data-dismiss="alert">×</a> 
           <i class="fa fa-coffee"></i>
           This is an <strong>.alert</strong>. Use this to show important messages to the user.
@@ -56,7 +56,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="{{$profile->user->username}}">
+              <input class="form-control" type="text" value="{{Auth::user()->username}}">
             </div>
           </div>
           <div class="form-group">

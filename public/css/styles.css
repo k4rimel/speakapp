@@ -186,6 +186,8 @@ ul.notifications {
     margin: 2px;
 }
 .label-custom {
-    background-color: #cccccc;
+    background-color: #dddddd;
     box-shadow: 0px 2px 2px #999;
+    color: #777;
+    font-weight: normal;
 }
