@@ -9,11 +9,20 @@
     <div class="col-sm-12" contenteditable="false" style="">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>{{$results->getTotal().($results->getTotal() === 1 ? ' result' : ' results found') }}</h4>
+                @if($results)
+                <h4>{{$results->getTotal().($results->getTotal() === 1 ? ' result found for the terms "'.$query.'".' : ' results found for the terms "'.$query.'".') }}</h4>
+                @else
+                <h4>{{'0 result found for the terms "'.$query.'".'}}</h4>
+                @endif
             </div>
             <div class="panel-body">
                 <section class="col-xs-12 col-sm-6 col-md-12">
                     @if($results)
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3 col-md-offset-5 col-lg-3 col-lg-offset-5" contenteditable="false" style="">
+                             {{$results->links()}}
+                            </div>
+                        </div>
                         @foreach($results as $profile)
                         <article class="search-result row">
                             <div class="col-xs-12 col-sm-12 col-md-2">
@@ -58,11 +67,17 @@
                                 <p>{{$profile->description}}</p>
                             </div>
                             <span class="clearfix borda"></span>
+                        @if($results->count() > 1)
+                            <hr>
+                        @endif
                         </article>
                         @endforeach
-                    {{$results->links()}}
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3 col-md-offset-5 col-lg-3 col-lg-offset-5" contenteditable="false" style="">
+                             {{$results->links()}}
+                            </div>
+                        </div>
                     @endif
-
                     <!-- <div class="row">
                         <div class="col-sm-12 col-md-3 col-md-offset-5 col-lg-3 col-lg-offset-5" contenteditable="false" style="">
                             <ul class="pagination pagination-lg">

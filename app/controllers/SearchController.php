@@ -15,9 +15,13 @@ class SearchController extends BaseController {
         	$results = null;
         	$msg = 'No result found for your search.';
         }
+        $params = array(
+        	'results' => $results,
+    		'query' => $query
+    	);
         $this->layout->content = View::make('search.results');
         return View::make('search.results')
-            ->with('results', $results);
+            ->with($params);
 	}
 	public function searchByTag($q) {
 		dd($q);

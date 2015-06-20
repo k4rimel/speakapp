@@ -15,6 +15,7 @@
     background-image: url('../img/bg.jpg');
     background-size: 1920px 1080px;
     background-position: center;
+    background-repeat: no-repeat;
 }
 .main-header-text{
     color: #fff;
