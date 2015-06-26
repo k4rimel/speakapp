@@ -46,6 +46,7 @@ Route::get('/chat', array('as' => 'chat.index', 'uses' => 'ChatController@index'
 /* Search routes */
 
 Route::get('/search', array('before' => 'auth', 'as' => 'search', 'uses' => 'SearchController@search'));
+Route::get('/asearch', array('before' => 'auth', 'as' => 'asearch', 'uses' => 'SearchController@ajaxSearch'));
 Route::get('/search/tag/{tagid}', array('before' => 'auth', 'as' => 'search.tag', 'uses' => 'SearchController@searchByTag'))->where(array('tagid' => '^[0-9]*$'));;
 
 /* end Search routes */

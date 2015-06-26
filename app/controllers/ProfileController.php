@@ -162,11 +162,14 @@ class ProfileController extends BaseController {
         
     }    
     public function signout() {
-        date_default_timezone_set('Europe/Paris');
-        $date = date("Y-m-d H:i:s");
-        Auth::user()->last_connection_date = $date;
-        Auth::user()->save();
-        Auth::logout();
+       
+        if(Auth::user()) {
+            date_default_timezone_set('Europe/Paris');
+            $date = date("Y-m-d H:i:s");
+            Auth::user()->last_connection_date = $date;
+            Auth::user()->save();
+            Auth::logout();
+        }
         return Redirect::to('/');
     }
     public function showSignupPage() {

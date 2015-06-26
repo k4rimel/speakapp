@@ -1,26 +1,43 @@
-<script type="text/javascript">
-    $('.languages-to-learn-list').select2();
-    $('.spoken-languages-list').select2();
-</script>
 <nav class="navbar navbar-default navbar-static-top top-bar">
 <div class="container">
     <div class="navbar-header">
         <a class="navbar-brand navbar-collapse collapse" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
-        {{ Form::open(array('route' => 'search' , 'class' => 'navbar-form pull-left', 'role'=>'search', 'method' => 'GET')) }}
-            <div class="input-group">
-                {{ Form::text('q', Input::old('q'), array('class' => 'form-control topbar-search-input')) }}
-                <div class="input-group-btn">
-                   <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <div class="input-group" id="adv-search">
+            <input type="text" class="form-control main-search-form-input" placeholder="Search for people">
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="form-horizontal" role="form" >
+                                <div class="form-group">
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="contain">Is learning : </label>
+                                    <input class="form-control" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="contain">Contains the words</label>
+                                    <input class="form-control" type="text" />
+                                </div>
+                                <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-main-search-form"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </div>
             </div>
-        {{ Form::close() }}
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
+        </div>
     </div>
+
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+   
     <div id="navbar" class="navbar-collapse collapse">
          @if(!Auth::check())
         <div class="collapse navbar-collapse">
@@ -112,30 +129,52 @@
         </ul>
          @endif
     </div>
+    </div>
 </div>
 </nav>
 <script type="text/javascript">
     $(document).ready(function() {
-
         
-                
-        var mainContainer = $('.main.container');
-        
-        var successPanel = '<div class="alert alert-success alert-dismissable"><a class="panel-close close" data-dismiss="alert">×</a> <i class="fa fa-coffee"></i>Congratulations ! You and '++' are now friends !</div>';
-        $('.acceptFriendRequest').click(function(event) {
-            var id = $(this).prop('data-id');
-            var friendName = $(this).siblings('.friend-request-name');
+        $('.avanded-search-spoken-languages-list').select2();
+        $('.avanded-search-spoken-languages-list').click(function(event) {
+            event.stopPropagation();
+        });
+        $('.dropdown-menu input, .dropdown-menu label .dropdown .avanded-search-spoken-languages-list').click(function(e) {
+            e.stopPropagation();
+        });
+        $('.btn-main-search-form').click(function(event) {
+            var query = $('.main-search-form-input').val();
+            var url = "{{route('asearch', array('q="+query+"'))}}";
             $.ajax({
-                type: "POST",
-                url: "",
-                success: function(){
-                    mainContainer.prepend(successPanel);
+                type: "GET",
+                url: url,
+                success: function(data){
+                    console.log('success');
+                    console.log(data);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert(textStatus);
+                error: function(data, jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
                 }
             });
-        })
+        });
+        var mainContainer = $('.main.container');
+        
+        // $('.acceptFriendRequest').click(function(event) {
+        //     var id = $(this).prop('data-id');
+        //     var friendName = $(this).siblings('.friend-request-name');
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "",
+        //         success: function(){
+        //             mainContainer.prepend(successPanel);
+        //         },
+        //         error: function(jqXHR, textStatus, errorThrown) {
+        //             alert(textStatus);
+        //         }
+        //     });
+        // })
         // $('.denyFriendRequest').click(function(event) {
         //     var id = $(this).prop('data-id');
         //     alert(id);
