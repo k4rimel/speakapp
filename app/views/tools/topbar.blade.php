@@ -101,7 +101,7 @@
             <li class="dropdown">
                 <!-- <a data-toggle="dropdown" href=""> -->
                 <a data-toggle="dropdown" href="#">
-                    <img src="/img/40x40.gif" class="img-circle">
+                    <img src="{{Auth::user()->profile->picture_small_url}}" class="img-circle" height="40" width="40">
                         {{Auth::user()->profile->firstname }}
                     <b class="caret"></b>
                 </a>
