@@ -241,3 +241,6 @@ ul.notifications {
         min-width: 390px;
     }
 }
+.form-control.main-search-form-input {
+    width: 250px;
+}

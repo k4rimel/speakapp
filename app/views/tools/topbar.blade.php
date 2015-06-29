@@ -3,14 +3,16 @@
     <div class="navbar-header">
         <a class="navbar-brand navbar-collapse collapse" href="{{ route('main.index') }}">speakapp <span class="glyphicon glyphicon-comment"></span><small> alpha</small></a>
         <div class="input-group" id="adv-search">
-            <input type="text" class="form-control main-search-form-input" placeholder="Search for people">
+            {{ Form::open(array('url' => 'search', 'class' => 'signup-form', 'method' => 'GET')) }}
+            {{ Form::text('q', Input::old('q'), array('class' => 'form-control main-search-form-input', 'placeholder' => 'Search for people')) }}
+            <!-- <input type="text" class="form-control main-search-form-input" placeholder="Search for people"> -->
             <div class="input-group-btn">
                 <div class="btn-group" role="group">
-                    <div class="dropdown dropdown-lg">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                        <div class="dropdown-menu dropdown-menu-right" role="menu">
-                            <form class="form-horizontal" role="form" >
-                                <div class="form-group">
+                    <!-- <div class="dropdown dropdown-lg"> -->
+                        <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button> -->
+                        <!-- <div class="dropdown-menu dropdown-menu-right" role="menu"> -->
+                            <!-- <form class="form-horizontal" role="form" > -->
+                             <!--    <div class="form-group">
                                    
                                 </div>
                                 <div class="form-group">
@@ -21,13 +23,15 @@
                                     <label for="contain">Contains the words</label>
                                     <input class="form-control" type="text" />
                                 </div>
-                                <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            </form>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary btn-main-search-form"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
+                            <!-- </form> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
                 </div>
+                    {{ Form::submit('Search', array('class' => 'btn btn-primary btn-main-search-form')) }}
+                    <!-- <button type="submit" class="btn btn-primary btn-main-search-form"></button> -->
             </div>
+            {{ Form::close() }}
         </div>
     </div>
 
